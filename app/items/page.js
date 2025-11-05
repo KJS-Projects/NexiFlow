@@ -1,8 +1,8 @@
 import { createItem } from "./actions";
 import { getAllItems } from "@/lib/queries/items";
 
-export default async function CommentsPage() {
-  const comments = await getAllItems();
+export default async function ItemsPage() {
+  const items = await getAllItems();
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 p-8">
@@ -21,9 +21,9 @@ export default async function CommentsPage() {
       </form>
 
       <div className="w-full max-w-md space-y-2">
-        {comments.map((c) => (
+        {items.map((c) => (
           <div key={c.id} className="bg-white p-3 rounded-lg shadow-sm border">
-            {c.comment}
+            {c.item}
           </div>
         ))}
       </div>
