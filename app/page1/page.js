@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
 
+import { Suspense } from "react";
+
 export default function Home() {
   // Mock data - replace with actual data from your API
   const featuredProducts = [
@@ -77,7 +79,9 @@ export default function Home() {
 
   return (
     <>
-      <Header />
+      <Suspense fallback={<div className="h-16 bg-white shadow-sm"></div>}>
+        <Header />
+      </Suspense>
       <div className="min-h-screen bg-gray-50">
         {/* Hero Section */}
         <section className="relative bg-gradient-to-r from-blue-600 to-purple-700 text-white">
