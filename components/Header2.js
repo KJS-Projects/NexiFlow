@@ -2,9 +2,24 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { FiHome, FiHeart, FiUser, FiPlusCircle, FiMapPin, FiFilter, FiChevronRight, FiX, FiSearch } from "react-icons/fi";
+import {
+  FiHome,
+  FiHeart,
+  FiUser,
+  FiPlusCircle,
+  FiMapPin,
+  FiFilter,
+  FiChevronRight,
+  FiX,
+  FiSearch,
+  FiLogOut,
+  FiSettings,
+  FiShoppingBag,
+} from "react-icons/fi";
+import { auth } from "@/utils/firebase";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
 export default function Header2() {
   const [activeFilters, setActiveFilters] = useState({
@@ -12,12 +27,35 @@ export default function Header2() {
     location: "",
     price: "",
   });
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
   const categories = ["Electronics", "Furniture", "Fashion", "Sports", "Books", "Vehicles", "Real Estate", "Toys", "Mobile", "Laptop"];
-
   const locations = ["Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad", "Pune", "Kolkata", "Ahmedabad"];
+
+  // Auth state listener
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setShowUserMenu(false);
+      router.push("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   // Function to build browse URL with filters
   const buildBrowseUrl = (filters = {}) => {
@@ -40,12 +78,9 @@ export default function Header2() {
 
     setActiveFilters(newFilters);
 
-    // Navigate to browse page with the selected filter
     if (newFilters[type] === value) {
-      // Only navigate if we're setting the filter (not clearing it)
       router.push(buildBrowseUrl(newFilters));
     } else {
-      // If clearing the filter, navigate with remaining filters
       const remainingFilters = { ...newFilters };
       remainingFilters[type] = "";
       router.push(buildBrowseUrl(remainingFilters));
@@ -82,6 +117,72 @@ export default function Header2() {
     </Link>
   );
 
+  // User menu dropdown component
+  const UserMenu = () => (
+    <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50">
+      <div className="px-4 py-2 border-b border-gray-100">
+        <p className="text-sm font-medium text-gray-800 truncate">{user?.displayName || "User"}</p>
+        <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+      </div>
+
+      <Link
+        href="/profile"
+        onClick={() => setShowUserMenu(false)}
+        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition duration-200">
+        <FiUser className="text-base" />
+        <span>My Profile</span>
+      </Link>
+
+      <Link
+        href="/my-items"
+        onClick={() => setShowUserMenu(false)}
+        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition duration-200">
+        <FiShoppingBag className="text-base" />
+        <span>My Items</span>
+      </Link>
+
+      <Link
+        href="/favorites"
+        onClick={() => setShowUserMenu(false)}
+        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition duration-200">
+        <FiHeart className="text-base" />
+        <span>Favorites</span>
+      </Link>
+
+      <div className="border-t border-gray-100 mt-1 pt-1">
+        <button
+          onClick={handleLogout}
+          className="flex items-center space-x-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-200">
+          <FiLogOut className="text-base" />
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </div>
+  );
+
+  // Show loading state briefly
+  if (loading) {
+    return (
+      <header className="sticky top-0 z-50 bg-white shadow-lg">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2 animate-pulse">
+              <div className="w-10 h-10 bg-gray-300 rounded-xl"></div>
+              <div>
+                <div className="h-6 bg-gray-300 rounded w-24 mb-1"></div>
+                <div className="h-3 bg-gray-300 rounded w-16"></div>
+              </div>
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className="h-10 bg-gray-300 rounded w-24 animate-pulse"></div>
+              <div className="h-10 bg-gray-300 rounded w-24 animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+    );
+  }
+
   return (
     <header className="sticky top-0 z-50 bg-white shadow-lg">
       {/* Main Header */}
@@ -113,30 +214,66 @@ export default function Header2() {
                 <span>Categories</span>
               </Link>
               <Link
-                href="/items/new"
+                href={user ? "/items/new" : "/signin"}
                 className="flex items-center space-x-1 ml-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-lg font-medium hover:from-teal-600 hover:to-amber-600 transition-all duration-300 shadow-lg shadow-teal-500/25">
                 <FiPlusCircle className="text-lg" />
                 <span>Sell Item</span>
               </Link>
             </nav>
 
-            {/* Auth Buttons */}
+            {/* Auth Buttons / User Menu */}
             <div className="flex items-center space-x-3">
               <button className="p-2 text-gray-600 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition duration-300">
                 <FiHeart className="text-xl" />
               </button>
-              <div className="hidden sm:flex items-center space-x-3">
-                <Link href="/login" className="px-4 py-2 text-gray-600 hover:text-teal-600 font-medium transition duration-300">
-                  Login
-                </Link>
-                <Link
-                  href="/register"
-                  className="px-6 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition duration-300 font-medium shadow-lg">
-                  Sign Up
-                </Link>
-              </div>
+
+              {user ? (
+                // User is logged in - Show user menu
+                <div className="relative">
+                  <button
+                    onClick={() => setShowUserMenu(!showUserMenu)}
+                    className="flex items-center space-x-2 p-2 rounded-lg hover:bg-teal-50 transition duration-300">
+                    <div className="w-8 h-8 bg-gradient-to-r from-teal-500 to-amber-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                      {user?.displayName?.charAt(0)?.toUpperCase() || user?.email?.charAt(0)?.toUpperCase() || "U"}
+                    </div>
+                    <span className="hidden sm:block text-sm font-medium text-gray-700 max-w-24 truncate">
+                      {user?.displayName || "User"}
+                    </span>
+                  </button>
+
+                  {showUserMenu && <UserMenu />}
+                </div>
+              ) : (
+                // User is not logged in - Show login/signup buttons
+                <div className="hidden sm:flex items-center space-x-3">
+                  <Link href="/signin" className="px-4 py-2 text-gray-600 hover:text-teal-600 font-medium transition duration-300">
+                    Login
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="px-6 py-2 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-lg hover:from-teal-600 hover:to-amber-600 transition duration-300 font-medium shadow-lg shadow-teal-500/25">
+                    Sign Up
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
+
+          {/* Mobile Auth Buttons - Only show when not logged in */}
+          {!user && (
+            <div className="flex sm:hidden items-center justify-center space-x-4 mt-3 pt-3 border-t border-gray-100">
+              <Link
+                href="/signin"
+                className="flex-1 text-center py-2 text-gray-600 hover:text-teal-600 font-medium transition duration-300">
+                Login
+              </Link>
+              <Link
+                href="/signup"
+                className="flex-1 text-center py-2 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-lg hover:from-teal-600 hover:to-amber-600 transition duration-300 font-medium shadow-lg shadow-teal-500/25">
+                Sign Up
+              </Link>
+            </div>
+          )}
         </div>
       </div>
 
@@ -235,6 +372,9 @@ export default function Header2() {
           </div>
         </div>
       </div>
+
+      {/* Backdrop for user menu (mobile) */}
+      {showUserMenu && <div className="fixed inset-0 z-40 bg-black bg-opacity-10 md:hidden" onClick={() => setShowUserMenu(false)} />}
     </header>
   );
 }

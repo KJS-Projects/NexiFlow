@@ -1,7 +1,7 @@
 // app/sell/page.js
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   FiUpload,
@@ -15,15 +15,31 @@ import {
   FiCheck,
   FiArrowLeft,
   FiAlertCircle,
+  FiLogIn,
 } from "react-icons/fi";
 import { handleCreateItem } from "./actions";
+import { auth } from "@/utils/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import Link from "next/link";
 
 export default function SellPage() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [imagePreviews, setImagePreviews] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const fileInputRef = useRef(null);
+
+  // Check if user is authenticated
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const categories = [
     "Electronics",
@@ -72,7 +88,6 @@ export default function SellPage() {
     setImagePreviews((prev) => [...prev, ...newPreviews]);
     setError("");
 
-    // Reset the file input to allow selecting the same file again
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -88,16 +103,26 @@ export default function SellPage() {
   };
 
   const handleSubmit = async (formData) => {
+    if (!currentUser) {
+      setError("Please sign in to list an item");
+      return;
+    }
+
     setIsSubmitting(true);
     setError("");
 
     try {
+      // Add user data to formData
+      formData.append("userId", currentUser.uid);
+      formData.append("userEmail", currentUser.email);
+      formData.append("userName", currentUser.displayName || currentUser.email);
+
       // Add image files to formData with unique names
       imagePreviews.forEach((preview, index) => {
         formData.append(`image-${index}`, preview.file);
       });
 
-      console.log("Submitting form with images:", imagePreviews.length);
+      console.log("Submitting form with user:", currentUser.uid);
 
       await handleCreateItem(formData);
     } catch (err) {
@@ -105,6 +130,56 @@ export default function SellPage() {
       setIsSubmitting(false);
     }
   };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-teal-50/20 py-8">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="animate-pulse">
+            <div className="h-8 bg-gray-300 rounded w-1/4 mb-8"></div>
+            <div className="h-12 bg-gray-300 rounded-xl mb-6"></div>
+            <div className="grid gap-6">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="h-64 bg-gray-300 rounded-2xl"></div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show login prompt if user is not authenticated
+  if (!currentUser) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-teal-50/20 flex items-center justify-center py-12 px-4">
+        <div className="max-w-md w-full text-center">
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="w-20 h-20 bg-gradient-to-r from-teal-500 to-amber-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <FiLogIn className="text-white text-2xl" />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Sign In Required</h2>
+            <p className="text-gray-600 mb-6">
+              You need to be signed in to list items for sale. Please sign in or create an account to continue.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/signin"
+                className="flex-1 px-6 py-3 border-2 border-teal-500 text-teal-600 rounded-xl font-semibold hover:bg-teal-50 transition duration-300">
+                Sign In
+              </Link>
+              <Link
+                href="/signup"
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-xl font-semibold hover:from-teal-600 hover:to-amber-600 transition duration-300 shadow-lg shadow-teal-500/25">
+                Sign Up
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-teal-50/20 py-8">
@@ -123,6 +198,12 @@ export default function SellPage() {
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Fill in the details below to list your item. The more information you provide, the faster it will sell.
             </p>
+            <div className="mt-4 flex items-center justify-center space-x-2 text-sm text-teal-600">
+              <FiUser className="text-base" />
+              <span>
+                Listing as: <strong>{currentUser.displayName || currentUser.email}</strong>
+              </span>
+            </div>
           </div>
         </div>
 
@@ -154,6 +235,11 @@ export default function SellPage() {
 
         {/* Main Form */}
         <form action={handleSubmit} className="space-y-6">
+          {/* Hidden user data fields */}
+          <input type="hidden" name="userId" value={currentUser.uid} />
+          <input type="hidden" name="userEmail" value={currentUser.email} />
+          <input type="hidden" name="userName" value={currentUser.displayName || currentUser.email} />
+
           {/* Item Details Card */}
           <div className="bg-white rounded-2xl shadow-lg p-6">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
@@ -323,6 +409,7 @@ export default function SellPage() {
                     type="text"
                     name="contactName"
                     required
+                    defaultValue={currentUser.displayName || ""}
                     placeholder="Enter your full name"
                     className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-300"
                   />

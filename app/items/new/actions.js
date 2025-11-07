@@ -1,7 +1,7 @@
 // app/actions/items.js
 "use server";
 
-import { addItem } from "@/lib/queries/items";
+import { addItem, updateItemStatus, deleteItem } from "@/lib/queries/items";
 import { put } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -19,6 +19,10 @@ export async function createItem(formData) {
       condition: formData.get("condition"),
       contactName: formData.get("contactName"),
       contactPhone: formData.get("contactPhone"),
+      // Add user data
+      userId: formData.get("userId"),
+      userEmail: formData.get("userEmail"),
+      userName: formData.get("userName"),
     };
 
     console.log("Form data received:", itemData);
@@ -32,7 +36,8 @@ export async function createItem(formData) {
       !itemData.location ||
       !itemData.condition ||
       !itemData.contactName ||
-      !itemData.contactPhone
+      !itemData.contactPhone ||
+      !itemData.userId
     ) {
       throw new Error("All required fields must be filled");
     }
@@ -87,6 +92,7 @@ export async function createItem(formData) {
     // Revalidate the cache and redirect
     revalidatePath("/");
     revalidatePath("/browse");
+    revalidatePath("/my-items");
 
     return {
       success: true,
@@ -110,5 +116,34 @@ export async function handleCreateItem(formData) {
     redirect(`/items/${result.itemId}?success=true`);
   } else {
     redirect(`/sell?error=${encodeURIComponent(result.error)}`);
+  }
+}
+
+export async function updateItemStatusAction(itemId, status) {
+  try {
+    await updateItemStatus(itemId, status);
+
+    revalidatePath(`/item/${itemId}`);
+    revalidatePath("/browse");
+    revalidatePath("/");
+
+    return { success: true, message: `Item marked as ${status}` };
+  } catch (error) {
+    console.error("Error updating item status:", error);
+    return { success: false, error: "Failed to update item status" };
+  }
+}
+
+export async function deleteItemAction(itemId) {
+  try {
+    await deleteItem(itemId);
+
+    revalidatePath("/browse");
+    revalidatePath("/");
+
+    return { success: true, message: "Item deleted successfully" };
+  } catch (error) {
+    console.error("Error deleting item:", error);
+    return { success: false, error: "Failed to delete item" };
   }
 }

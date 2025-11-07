@@ -58,6 +58,9 @@ async function seedDatabase() {
         contact_name: "Rajiv Mehta",
         contact_phone: "+91 9876543250",
         image_urls: ["https://picsum.photos/600/400?random=101"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Bose SoundLink Bluetooth Speaker",
@@ -71,6 +74,9 @@ async function seedDatabase() {
         contact_name: "Ananya Desai",
         contact_phone: "+91 9876543251",
         image_urls: ["https://picsum.photos/600/400?random=102"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Apple iPad Air 4th Generation",
@@ -84,6 +90,9 @@ async function seedDatabase() {
         contact_name: "Karthik Nair",
         contact_phone: "+91 9876543252",
         image_urls: ["https://picsum.photos/600/400?random=103"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Dyson V11 Cordless Vacuum Cleaner",
@@ -97,6 +106,9 @@ async function seedDatabase() {
         contact_name: "Lakshmi Iyer",
         contact_phone: "+91 9876543253",
         image_urls: ["https://picsum.photos/600/400?random=104"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "GoPro Hero 9 Black",
@@ -109,6 +121,9 @@ async function seedDatabase() {
         contact_name: "Aditya Rao",
         contact_phone: "+91 9876543254",
         image_urls: ["https://picsum.photos/600/400?random=105"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Sony PlayStation 4 Pro 1TB",
@@ -122,6 +137,9 @@ async function seedDatabase() {
         contact_name: "Rohit Sharma",
         contact_phone: "+91 9876543255",
         image_urls: ["https://picsum.photos/600/400?random=106"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Amazon Echo Studio Smart Speaker",
@@ -134,6 +152,9 @@ async function seedDatabase() {
         contact_name: "Priyanka Chatterjee",
         contact_phone: "+91 9876543256",
         image_urls: ["https://picsum.photos/600/400?random=107"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "DJI Mavic Air 2 Drone",
@@ -147,6 +168,9 @@ async function seedDatabase() {
         contact_name: "Vikram Singh",
         contact_phone: "+91 9876543257",
         image_urls: ["https://picsum.photos/600/400?random=108"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Kindle Paperwhite 10th Gen",
@@ -160,6 +184,9 @@ async function seedDatabase() {
         contact_name: "Meera Joshi",
         contact_phone: "+91 9876543258",
         image_urls: ["https://picsum.photos/600/400?random=109"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "JBL PartyBox 300 Speaker",
@@ -173,6 +200,9 @@ async function seedDatabase() {
         contact_name: "Sanjay Kumar",
         contact_phone: "+91 9876543259",
         image_urls: ["https://picsum.photos/600/400?random=110"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
 
       // Furniture (8 products)
@@ -188,6 +218,9 @@ async function seedDatabase() {
         contact_name: "Arun Kumar",
         contact_phone: "+91 9876543260",
         image_urls: ["https://picsum.photos/600/400?random=111"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Glass Dining Table 6 Seater",
@@ -201,6 +234,9 @@ async function seedDatabase() {
         contact_name: "Sneha Reddy",
         contact_phone: "+91 9876543261",
         image_urls: ["https://picsum.photos/600/400?random=112"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Executive Office Desk",
@@ -214,6 +250,9 @@ async function seedDatabase() {
         contact_name: "Nitin Deshmukh",
         contact_phone: "+91 9876543262",
         image_urls: ["https://picsum.photos/600/400?random=113"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Bookshelf with 5 Shelves",
@@ -226,6 +265,9 @@ async function seedDatabase() {
         contact_name: "Anil Bannerjee",
         contact_phone: "+91 9876543263",
         image_urls: ["https://picsum.photos/600/400?random=114"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Sofa Cum Bed 3 Seater",
@@ -238,6 +280,9 @@ async function seedDatabase() {
         contact_name: "Rahul Verma",
         contact_phone: "+91 9876543264",
         image_urls: ["https://picsum.photos/600/400?random=115"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Dining Chairs Set of 4",
@@ -250,6 +295,9 @@ async function seedDatabase() {
         contact_name: "Pooja Shah",
         contact_phone: "+91 9876543265",
         image_urls: ["https://picsum.photos/600/400?random=116"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Coffee Table with Storage",
@@ -262,6 +310,9 @@ async function seedDatabase() {
         contact_name: "Deepa Nair",
         contact_phone: "+91 9876543266",
         image_urls: ["https://picsum.photos/600/400?random=117"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Wardrobe with Mirror 6 Feet",
@@ -274,6 +325,9 @@ async function seedDatabase() {
         contact_name: "Venkat Raman",
         contact_phone: "+91 9876543267",
         image_urls: ["https://picsum.photos/600/400?random=118"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
 
       // Fashion (10 products)
@@ -289,6 +343,9 @@ async function seedDatabase() {
         contact_name: "Ishaani Kapoor",
         contact_phone: "+91 9876543268",
         image_urls: ["https://picsum.photos/600/400?random=119"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Ray-Ban Aviator Sunglasses",
@@ -301,6 +358,9 @@ async function seedDatabase() {
         contact_name: "Arjun Malhotra",
         contact_phone: "+91 9876543269",
         image_urls: ["https://picsum.photos/600/400?random=120"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Rolex Datejust Watch",
@@ -314,6 +374,9 @@ async function seedDatabase() {
         contact_name: "Rohan Mittal",
         contact_phone: "+91 9876543270",
         image_urls: ["https://picsum.photos/600/400?random=121"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Adidas Ultraboost 21 Running Shoes",
@@ -326,6 +389,9 @@ async function seedDatabase() {
         contact_name: "Kiran Kumar",
         contact_phone: "+91 9876543271",
         image_urls: ["https://picsum.photos/600/400?random=122"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Designer Silk Saree Collection",
@@ -339,6 +405,9 @@ async function seedDatabase() {
         contact_name: "Lakshmi Priya",
         contact_phone: "+91 9876543272",
         image_urls: ["https://picsum.photos/600/400?random=123"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "North Face Winter Jacket",
@@ -351,6 +420,9 @@ async function seedDatabase() {
         contact_name: "Amit Deshpande",
         contact_phone: "+91 9876543273",
         image_urls: ["https://picsum.photos/600/400?random=124"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Michael Kors Handbag",
@@ -363,6 +435,9 @@ async function seedDatabase() {
         contact_name: "Sonia Ghosh",
         contact_phone: "+91 9876543274",
         image_urls: ["https://picsum.photos/600/400?random=125"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Designer Leather Wallet for Men",
@@ -375,6 +450,9 @@ async function seedDatabase() {
         contact_name: "Rajat Gupta",
         contact_phone: "+91 9876543275",
         image_urls: ["https://picsum.photos/600/400?random=126"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Converse Chuck Taylor All Star",
@@ -387,6 +465,9 @@ async function seedDatabase() {
         contact_name: "Neha Sharma",
         contact_phone: "+91 9876543276",
         image_urls: ["https://picsum.photos/600/400?random=127"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Designer Ethnic Kurti Set",
@@ -399,6 +480,9 @@ async function seedDatabase() {
         contact_name: "Priya Nair",
         contact_phone: "+91 9876543277",
         image_urls: ["https://picsum.photos/600/400?random=128"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
 
       // Sports & Fitness (8 products)
@@ -413,6 +497,9 @@ async function seedDatabase() {
         contact_name: "Vikram Aditya",
         contact_phone: "+91 9876543278",
         image_urls: ["https://picsum.photos/600/400?random=129"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Yonex Badminton Racquet",
@@ -425,6 +512,9 @@ async function seedDatabase() {
         contact_name: "Suresh Kumar",
         contact_phone: "+91 9876543279",
         image_urls: ["https://picsum.photos/600/400?random=130"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Cycling Exercise Bike",
@@ -437,6 +527,9 @@ async function seedDatabase() {
         contact_name: "Mahesh Joshi",
         contact_phone: "+91 9876543280",
         image_urls: ["https://picsum.photos/600/400?random=131"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Wilson Pro Staff Tennis Racquet",
@@ -450,6 +543,9 @@ async function seedDatabase() {
         contact_name: "Rahul Dey",
         contact_phone: "+91 9876543281",
         image_urls: ["https://picsum.photos/600/400?random=132"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Professional Boxing Equipment Set",
@@ -462,6 +558,9 @@ async function seedDatabase() {
         contact_name: "Ajay Singh",
         contact_phone: "+91 9876543282",
         image_urls: ["https://picsum.photos/600/400?random=133"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Yoga and Pilates Equipment Bundle",
@@ -475,6 +574,9 @@ async function seedDatabase() {
         contact_name: "Anjali Mehta",
         contact_phone: "+91 9876543283",
         image_urls: ["https://picsum.photos/600/400?random=134"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Football Size 5 Professional",
@@ -487,6 +589,9 @@ async function seedDatabase() {
         contact_name: "Rohan Fernandes",
         contact_phone: "+91 9876543284",
         image_urls: ["https://picsum.photos/600/400?random=135"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Cricket Bat English Willow",
@@ -499,6 +604,9 @@ async function seedDatabase() {
         contact_name: "Siddharth Reddy",
         contact_phone: "+91 9876543285",
         image_urls: ["https://picsum.photos/600/400?random=136"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
 
       // Books & Media (6 products)
@@ -513,6 +621,9 @@ async function seedDatabase() {
         contact_name: "Karthik Iyer",
         contact_phone: "+91 9876543286",
         image_urls: ["https://picsum.photos/600/400?random=137"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "GMAT Preparation Books Set",
@@ -526,6 +637,9 @@ async function seedDatabase() {
         contact_name: "Aarav Joshi",
         contact_phone: "+91 9876543287",
         image_urls: ["https://picsum.photos/600/400?random=138"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Classic Literature Collection",
@@ -538,6 +652,9 @@ async function seedDatabase() {
         contact_name: "Ananya Das",
         contact_phone: "+91 9876543288",
         image_urls: ["https://picsum.photos/600/400?random=139"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Children's Educational Books Set",
@@ -550,6 +667,9 @@ async function seedDatabase() {
         contact_name: "Pooja Gupta",
         contact_phone: "+91 9876543289",
         image_urls: ["https://picsum.photos/600/400?random=140"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Cookbook Collection - Indian Cuisine",
@@ -562,6 +682,9 @@ async function seedDatabase() {
         contact_name: "Sanjana Patel",
         contact_phone: "+91 9876543290",
         image_urls: ["https://picsum.photos/600/400?random=141"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Self-Help and Business Books",
@@ -574,6 +697,9 @@ async function seedDatabase() {
         contact_name: "Rohit Nair",
         contact_phone: "+91 9876543291",
         image_urls: ["https://picsum.photos/600/400?random=142"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
 
       // Mobile Phones (8 products)
@@ -589,6 +715,9 @@ async function seedDatabase() {
         contact_name: "Vishal Reddy",
         contact_phone: "+91 9876543292",
         image_urls: ["https://picsum.photos/600/400?random=143"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Samsung Galaxy Z Flip 3",
@@ -602,6 +731,9 @@ async function seedDatabase() {
         contact_name: "Divya Raman",
         contact_phone: "+91 9876543293",
         image_urls: ["https://picsum.photos/600/400?random=144"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Google Pixel 6 Pro 128GB",
@@ -614,6 +746,9 @@ async function seedDatabase() {
         contact_name: "Amit Desai",
         contact_phone: "+91 9876543294",
         image_urls: ["https://picsum.photos/600/400?random=145"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Xiaomi Mi 11 Ultra",
@@ -627,6 +762,9 @@ async function seedDatabase() {
         contact_name: "Sourav Roy",
         contact_phone: "+91 9876543295",
         image_urls: ["https://picsum.photos/600/400?random=146"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "iPhone 12 64GB",
@@ -639,6 +777,9 @@ async function seedDatabase() {
         contact_name: "Rajat Khanna",
         contact_phone: "+91 9876543296",
         image_urls: ["https://picsum.photos/600/400?random=147"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Realme GT Master Edition",
@@ -651,6 +792,9 @@ async function seedDatabase() {
         contact_name: "Neha Kapoor",
         contact_phone: "+91 9876543297",
         image_urls: ["https://picsum.photos/600/400?random=148"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Oppo Reno 6 Pro 5G",
@@ -663,6 +807,9 @@ async function seedDatabase() {
         contact_name: "Kiran Nair",
         contact_phone: "+91 9876543298",
         image_urls: ["https://picsum.photos/600/400?random=149"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Vivo X70 Pro+",
@@ -675,6 +822,9 @@ async function seedDatabase() {
         contact_name: "Rajeshwari Reddy",
         contact_phone: "+91 9876543299",
         image_urls: ["https://picsum.photos/600/400?random=150"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
 
       // Laptops & Computers (6 products)
@@ -689,6 +839,9 @@ async function seedDatabase() {
         contact_name: "Arvind Iyer",
         contact_phone: "+91 9876543300",
         image_urls: ["https://picsum.photos/600/400?random=151"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "HP Pavilion Gaming Laptop",
@@ -701,6 +854,9 @@ async function seedDatabase() {
         contact_name: "Siddharth Joshi",
         contact_phone: "+91 9876543301",
         image_urls: ["https://picsum.photos/600/400?random=152"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Lenovo ThinkPad T14",
@@ -713,6 +869,9 @@ async function seedDatabase() {
         contact_name: "Animesh Das",
         contact_phone: "+91 9876543302",
         image_urls: ["https://picsum.photos/600/400?random=153"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Apple MacBook Air M1 2020",
@@ -725,6 +884,9 @@ async function seedDatabase() {
         contact_name: "Nisha Malhotra",
         contact_phone: "+91 9876543303",
         image_urls: ["https://picsum.photos/600/400?random=154"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "ASUS ROG Strix Gaming Laptop",
@@ -737,6 +899,9 @@ async function seedDatabase() {
         contact_name: "Rohan Mehta",
         contact_phone: "+91 9876543304",
         image_urls: ["https://picsum.photos/600/400?random=155"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Microsoft Surface Laptop 4",
@@ -749,6 +914,9 @@ async function seedDatabase() {
         contact_name: "Priya Nair",
         contact_phone: "+91 9876543305",
         image_urls: ["https://picsum.photos/600/400?random=156"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
 
       // Home Appliances (8 products)
@@ -763,6 +931,9 @@ async function seedDatabase() {
         contact_name: "Kavitha Reddy",
         contact_phone: "+91 9876543306",
         image_urls: ["https://picsum.photos/600/400?random=157"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Samsung Microwave Oven 28L",
@@ -775,6 +946,9 @@ async function seedDatabase() {
         contact_name: "Ramesh Iyer",
         contact_phone: "+91 9876543307",
         image_urls: ["https://picsum.photos/600/400?random=158"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Philips Air Purifier",
@@ -787,6 +961,9 @@ async function seedDatabase() {
         contact_name: "Anjali Deshpande",
         contact_phone: "+91 9876543308",
         image_urls: ["https://picsum.photos/600/400?random=159"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "KitchenAid Stand Mixer",
@@ -799,6 +976,9 @@ async function seedDatabase() {
         contact_name: "Madhuri Sen",
         contact_phone: "+91 9876543309",
         image_urls: ["https://picsum.photos/600/400?random=160"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Water Purifier RO+UV",
@@ -811,6 +991,9 @@ async function seedDatabase() {
         contact_name: "Rohit Gupta",
         contact_phone: "+91 9876543310",
         image_urls: ["https://picsum.photos/600/400?random=161"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Hair Dryer Professional",
@@ -823,6 +1006,9 @@ async function seedDatabase() {
         contact_name: "Simran Shah",
         contact_phone: "+91 9876543311",
         image_urls: ["https://picsum.photos/600/400?random=162"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Electric Kettle 1.5L",
@@ -835,6 +1021,9 @@ async function seedDatabase() {
         contact_name: "Vikram Nair",
         contact_phone: "+91 9876543312",
         image_urls: ["https://picsum.photos/600/400?random=163"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Vacuum Cleaner Bagless",
@@ -847,6 +1036,9 @@ async function seedDatabase() {
         contact_name: "Suresh Kumar",
         contact_phone: "+91 9876543313",
         image_urls: ["https://picsum.photos/600/400?random=164"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
 
       // Toys & Games (6 products)
@@ -861,6 +1053,9 @@ async function seedDatabase() {
         contact_name: "Arjun Iyer",
         contact_phone: "+91 9876543314",
         image_urls: ["https://picsum.photos/600/400?random=165"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "PlayStation 5 Games Collection",
@@ -873,6 +1068,9 @@ async function seedDatabase() {
         contact_name: "Rahul Joshi",
         contact_phone: "+91 9876543315",
         image_urls: ["https://picsum.photos/600/400?random=166"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Barbie Dreamhouse",
@@ -885,6 +1083,9 @@ async function seedDatabase() {
         contact_name: "Tanya Das",
         contact_phone: "+91 9876543316",
         image_urls: ["https://picsum.photos/600/400?random=167"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Nintendo Switch with Games",
@@ -897,6 +1098,9 @@ async function seedDatabase() {
         contact_name: "Ankit Khanna",
         contact_phone: "+91 9876543317",
         image_urls: ["https://picsum.photos/600/400?random=168"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Remote Control Car Professional",
@@ -909,6 +1113,9 @@ async function seedDatabase() {
         contact_name: "Rohan Mehta",
         contact_phone: "+91 9876543318",
         image_urls: ["https://picsum.photos/600/400?random=169"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Educational STEM Toys Set",
@@ -921,6 +1128,9 @@ async function seedDatabase() {
         contact_name: "Preeti Nair",
         contact_phone: "+91 9876543319",
         image_urls: ["https://picsum.photos/600/400?random=170"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
 
       // Vehicles (4 products)
@@ -935,6 +1145,9 @@ async function seedDatabase() {
         contact_name: "Mahesh Reddy",
         contact_phone: "+91 9876543320",
         image_urls: ["https://picsum.photos/600/400?random=171"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Honda Activa 6G Scooter",
@@ -947,6 +1160,9 @@ async function seedDatabase() {
         contact_name: "Geetha Iyer",
         contact_phone: "+91 9876543321",
         image_urls: ["https://picsum.photos/600/400?random=172"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Yamaha MT-15 Motorcycle",
@@ -959,6 +1175,9 @@ async function seedDatabase() {
         contact_name: "Vishal Deshmukh",
         contact_phone: "+91 9876543322",
         image_urls: ["https://picsum.photos/600/400?random=173"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Electric Scooter - Revolt RV400",
@@ -971,6 +1190,9 @@ async function seedDatabase() {
         contact_name: "Amitava Roy",
         contact_phone: "+91 9876543323",
         image_urls: ["https://picsum.photos/600/400?random=174"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
 
       // Real Estate (2 products)
@@ -985,6 +1207,9 @@ async function seedDatabase() {
         contact_name: "Property Manager",
         contact_phone: "+91 9876543324",
         image_urls: ["https://picsum.photos/600/400?random=175"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Office Space for Rent",
@@ -997,6 +1222,9 @@ async function seedDatabase() {
         contact_name: "Commercial Realty",
         contact_phone: "+91 9876543325",
         image_urls: ["https://picsum.photos/600/400?random=176"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
 
       // Other (4 products)
@@ -1011,6 +1239,9 @@ async function seedDatabase() {
         contact_name: "Rahul Nair",
         contact_phone: "+91 9876543326",
         image_urls: ["https://picsum.photos/600/400?random=177"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Professional Camera Tripod",
@@ -1023,6 +1254,9 @@ async function seedDatabase() {
         contact_name: "Photography Enthusiast",
         contact_phone: "+91 9876543327",
         image_urls: ["https://picsum.photos/600/400?random=178"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Art Supplies Collection",
@@ -1035,6 +1269,9 @@ async function seedDatabase() {
         contact_name: "Art Student",
         contact_phone: "+91 9876543328",
         image_urls: ["https://picsum.photos/600/400?random=179"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
       {
         title: "Gardening Tools Set",
@@ -1047,6 +1284,9 @@ async function seedDatabase() {
         contact_name: "Gardening Enthusiast",
         contact_phone: "+91 9876543329",
         image_urls: ["https://picsum.photos/600/400?random=180"],
+        user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+        user_email: "mdshafinvohra@gmail.com",
+        user_name: "Mahammad Shafin Vohra",
       },
     ];
 
@@ -1073,6 +1313,9 @@ async function seedDatabase() {
           contact_name: `Seller ${Math.floor(Math.random() * 1000)}`,
           contact_phone: `+91 ${Math.floor(9000000000 + Math.random() * 1000000000)}`,
           image_urls: [`https://picsum.photos/600/400?random=${Math.floor(Math.random() * 1000)}`],
+          user_id: "tF1gKSIQgwPWZrZYN18TAZ2vXJY2",
+          user_email: "mdshafinvohra@gmail.com",
+          user_name: "Mahammad Shafin Vohra",
         });
       });
     });
@@ -1086,12 +1329,12 @@ async function seedDatabase() {
       await sql`
         INSERT INTO items (
           title, description, category, price, original_price, 
-          location, condition, contact_name, contact_phone, image_urls, status
+          location, condition, contact_name, contact_phone, image_urls, user_id, user_email, user_name, status
         ) VALUES (
           ${product.title}, ${product.description}, ${product.category}, 
           ${product.price}, ${product.original_price}, ${product.location}, 
           ${product.condition}, ${product.contact_name}, ${product.contact_phone}, 
-          ${product.image_urls}, 'active'
+          ${product.image_urls},${product.user_id},${product.user_email},${product.user_name}, 'active'
         )
       `;
     }
