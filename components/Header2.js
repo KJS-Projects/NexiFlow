@@ -94,7 +94,7 @@ export default function Header2() {
                 <FiHome className="text-white text-lg" />
               </div>
               <div>
-                <span className="text-2xl font-bold text-gray-800">NexiFlow</span>
+                <span className="text-2xl font-bold text-gray-800">MyStore</span>
                 <span className="block text-xs text-teal-600 font-medium -mt-1">Second Hand</span>
               </div>
             </Link>

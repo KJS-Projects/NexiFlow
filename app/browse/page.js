@@ -86,16 +86,25 @@ export default async function BrowsePage({ searchParams }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-teal-50/20">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        {/* <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">Browse All Items</h1>
-          <p className="text-lg text-gray-600">Discover amazing second-hand deals from sellers near you</p>
-        </div> */}
+      <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
+        {/* Mobile Filter Bar - Sticky at top */}
+        <div className="lg:hidden hidden bg-white rounded-xl shadow-sm p-3 mb-4 sticky top-16 z-30">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <span>{pagination.totalCount} items</span>
+              <span>•</span>
+              <span>Page {page}</span>
+            </div>
+            <Link href="#filters" className="flex items-center space-x-1 bg-teal-500 text-white px-3 py-2 rounded-lg text-sm font-medium">
+              <FiFilter className="text-sm" />
+              <span>Filters</span>
+            </Link>
+          </div>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Sidebar Filters */}
-          <div className="lg:col-span-1">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8">
+          {/* Sidebar Filters - Hidden on mobile, shown in modal/drawer */}
+          <div className="lg:col-span-1 hidden lg:block">
             <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-24">
               {/* Filter Header */}
               <div className="flex items-center justify-between mb-6">
@@ -126,34 +135,38 @@ export default async function BrowsePage({ searchParams }) {
 
           {/* Main Content */}
           <div className="lg:col-span-3">
-            {/* Results Header */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
+            {/* Results Header - Simplified on mobile */}
+            <div className="bg-white rounded-xl lg:rounded-2xl shadow-sm lg:shadow-lg p-4 lg:p-6 mb-4 lg:mb-6">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                <div className="mb-4 sm:mb-0">
-                  <p className="text-gray-600">
-                    Showing{" "}
+                <div className="mb-3 sm:mb-0">
+                  <p className="text-sm lg:text-base text-gray-600">
                     <span className="font-semibold text-gray-800">
                       {(page - 1) * limit + 1}-{Math.min(page * limit, pagination.totalCount)}
                     </span>{" "}
-                    of <span className="font-semibold text-gray-800">{pagination.totalCount}</span> items
+                    of <span className="font-semibold text-gray-800">{pagination.totalCount}</span>
                     {search && ` for "${search}"`}
-                    {category && ` in ${category}`}
-                    {location && ` from ${location}`}
                   </p>
+                  {(category || location) && (
+                    <p className="text-xs text-gray-500 mt-1">
+                      {category && `Category: ${category}`}
+                      {category && location && " • "}
+                      {location && `Location: ${location}`}
+                    </p>
+                  )}
                 </div>
 
-                {/* View Toggle */}
-                <div className="flex items-center space-x-4">
+                {/* View Toggle - Hidden on mobile since we're forcing grid */}
+                <div className="hidden sm:flex items-center space-x-4">
                   <div className="flex items-center space-x-2 bg-gray-100 rounded-lg p-1">
                     <Link
-                      href={buildPageUrl(1).replace(`page=${page}`, "view=grid")}
+                      href={buildPageUrl(1).replace(`view=${view}`, "view=grid")}
                       className={`p-2 rounded-lg transition duration-300 ${
                         view === "grid" ? "bg-white text-teal-600 shadow-sm" : "text-gray-500 hover:text-gray-700"
                       }`}>
                       <FiGrid className="text-lg" />
                     </Link>
                     <Link
-                      href={buildPageUrl(1).replace(`page=${page}`, "view=list")}
+                      href={buildPageUrl(1).replace(`view=${view}`, "view=list")}
                       className={`p-2 rounded-lg transition duration-300 ${
                         view === "list" ? "bg-white text-teal-600 shadow-sm" : "text-gray-500 hover:text-gray-700"
                       }`}>
@@ -169,13 +182,19 @@ export default async function BrowsePage({ searchParams }) {
               <>
                 <Suspense
                   fallback={
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
                       {[...Array(6)].map((_, i) => (
                         <ProductCardSkeleton key={i} />
                       ))}
                     </div>
                   }>
-                  <div className={view === "grid" ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" : "space-y-6 mb-8"}>
+                  {/* Force grid view on mobile, respect user choice on desktop */}
+                  <div
+                    className={
+                      view === "list"
+                        ? "hidden lg:block space-y-6 mb-8"
+                        : "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-8"
+                    }>
                     {items.map((item) => (
                       <ItemCard key={item.id} item={item} view={view} />
                     ))}
@@ -184,23 +203,23 @@ export default async function BrowsePage({ searchParams }) {
 
                 {/* Pagination */}
                 {pagination.totalPages > 1 && (
-                  <div className="bg-white rounded-2xl shadow-lg p-6">
+                  <div className="bg-white rounded-xl lg:rounded-2xl shadow-sm lg:shadow-lg p-4 lg:p-6">
                     <div className="flex items-center justify-between">
                       {/* Previous Button */}
                       <div>
                         {pagination.hasPrevPage ? (
                           <Link
                             href={buildPageUrl(page - 1)}
-                            className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition duration-300">
-                            <FiChevronLeft className="text-lg" />
-                            <span>Previous</span>
+                            className="flex items-center space-x-1 px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition duration-300 text-sm">
+                            <FiChevronLeft className="text-base" />
+                            <span className="hidden sm:inline">Previous</span>
                           </Link>
                         ) : (
                           <button
                             disabled
-                            className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-400 cursor-not-allowed">
-                            <FiChevronLeft className="text-lg" />
-                            <span>Previous</span>
+                            className="flex items-center space-x-1 px-3 py-2 border border-gray-300 rounded-lg text-gray-400 cursor-not-allowed text-sm">
+                            <FiChevronLeft className="text-base" />
+                            <span className="hidden sm:inline">Previous</span>
                           </button>
                         )}
                       </div>
@@ -211,7 +230,7 @@ export default async function BrowsePage({ searchParams }) {
                           <Link
                             key={pageNum}
                             href={buildPageUrl(pageNum)}
-                            className={`min-w-10 h-10 flex items-center justify-center rounded-lg transition duration-300 ${
+                            className={`min-w-8 h-8 lg:min-w-10 lg:h-10 flex items-center justify-center rounded-lg transition duration-300 text-sm ${
                               pageNum === page ? "bg-teal-500 text-white shadow-lg shadow-teal-500/25" : "text-gray-600 hover:bg-gray-100"
                             }`}>
                             {pageNum}
@@ -220,14 +239,14 @@ export default async function BrowsePage({ searchParams }) {
 
                         {/* Ellipsis for many pages */}
                         {pagination.totalPages > 5 && pagination.currentPage < pagination.totalPages - 2 && (
-                          <span className="px-2 text-gray-400">...</span>
+                          <span className="px-1 text-gray-400">...</span>
                         )}
 
                         {/* Last page */}
                         {pagination.totalPages > 5 && pagination.currentPage < pagination.totalPages - 1 && (
                           <Link
                             href={buildPageUrl(pagination.totalPages)}
-                            className={`min-w-10 h-10 flex items-center justify-center rounded-lg transition duration-300 ${
+                            className={`min-w-8 h-8 lg:min-w-10 lg:h-10 flex items-center justify-center rounded-lg transition duration-300 text-sm ${
                               pagination.totalPages === page
                                 ? "bg-teal-500 text-white shadow-lg shadow-teal-500/25"
                                 : "text-gray-600 hover:bg-gray-100"
@@ -239,7 +258,7 @@ export default async function BrowsePage({ searchParams }) {
 
                       {/* Mobile Page Info */}
                       <div className="sm:hidden text-sm text-gray-600">
-                        Page {page} of {pagination.totalPages}
+                        {page} / {pagination.totalPages}
                       </div>
 
                       {/* Next Button */}
@@ -247,16 +266,16 @@ export default async function BrowsePage({ searchParams }) {
                         {pagination.hasNextPage ? (
                           <Link
                             href={buildPageUrl(page + 1)}
-                            className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition duration-300">
-                            <span>Next</span>
-                            <FiChevronRight className="text-lg" />
+                            className="flex items-center space-x-1 px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition duration-300 text-sm">
+                            <span className="hidden sm:inline">Next</span>
+                            <FiChevronRight className="text-base" />
                           </Link>
                         ) : (
                           <button
                             disabled
-                            className="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-400 cursor-not-allowed">
-                            <span>Next</span>
-                            <FiChevronRight className="text-lg" />
+                            className="flex items-center space-x-1 px-3 py-2 border border-gray-300 rounded-lg text-gray-400 cursor-not-allowed text-sm">
+                            <span className="hidden sm:inline">Next</span>
+                            <FiChevronRight className="text-base" />
                           </button>
                         )}
                       </div>
@@ -266,17 +285,17 @@ export default async function BrowsePage({ searchParams }) {
               </>
             ) : (
               /* No Results */
-              <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
-                <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <FiSearch className="text-gray-400 text-2xl" />
+              <div className="bg-white rounded-xl lg:rounded-2xl shadow-sm lg:shadow-lg p-8 lg:p-12 text-center">
+                <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <FiSearch className="text-gray-400 text-xl lg:text-2xl" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">No items found</h3>
-                <p className="text-gray-600 mb-6">Try adjusting your filters or search terms to find what you're looking for.</p>
+                <h3 className="text-lg lg:text-xl font-semibold text-gray-800 mb-2">No items found</h3>
+                <p className="text-gray-600 mb-6 text-sm lg:text-base">Try adjusting your filters or search terms.</p>
                 <Link
                   href="/browse"
-                  className="inline-flex items-center space-x-2 bg-teal-500 text-white px-6 py-3 rounded-xl hover:bg-teal-600 transition duration-300 font-semibold">
-                  <FiSliders className="text-lg" />
-                  <span>Clear All Filters</span>
+                  className="inline-flex items-center space-x-2 bg-teal-500 text-white px-4 py-2 lg:px-6 lg:py-3 rounded-lg lg:rounded-xl hover:bg-teal-600 transition duration-300 font-semibold text-sm lg:text-base">
+                  <FiSliders className="text-base" />
+                  <span>Clear Filters</span>
                 </Link>
               </div>
             )}
@@ -287,13 +306,14 @@ export default async function BrowsePage({ searchParams }) {
   );
 }
 
-// Item Card Component (same as before)
+// Updated Item Card Component for Mobile Optimization
 function ItemCard({ item, view }) {
   const discountPercentage =
     item.original_price && item.price < item.original_price
       ? Math.round(((item.original_price - item.price) / item.original_price) * 100)
       : 0;
 
+  // List View (Desktop only)
   if (view === "list") {
     return (
       <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition duration-300 overflow-hidden">
@@ -357,11 +377,11 @@ function ItemCard({ item, view }) {
     );
   }
 
-  // Grid View (default)
+  // Grid View (Mobile Optimized)
   return (
-    <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition duration-300 overflow-hidden group">
-      {/* Image */}
-      <div className="relative h-48 bg-gray-200 overflow-hidden">
+    <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition duration-300 overflow-hidden group">
+      {/* Image - Smaller on mobile */}
+      <div className="relative h-32 sm:h-36 lg:h-48 bg-gray-200 overflow-hidden">
         {item.image_urls && item.image_urls.length > 0 ? (
           <img
             src={item.image_urls[0]}
@@ -370,50 +390,60 @@ function ItemCard({ item, view }) {
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-teal-100 to-amber-100 flex items-center justify-center">
-            <FiTag className="text-teal-400 text-3xl" />
+            <FiTag className="text-teal-400 text-xl lg:text-3xl" />
           </div>
         )}
 
-        {/* Discount Badge */}
+        {/* Discount Badge - Smaller on mobile */}
         {discountPercentage > 0 && (
-          <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+          <div className="absolute top-1 left-1 bg-red-500 text-white px-1 py-0.5 rounded text-xs font-bold lg:top-2 lg:left-2 lg:px-2 lg:py-1 lg:text-sm">
             {discountPercentage}% OFF
           </div>
         )}
 
-        {/* Category Badge */}
-        <div className="absolute top-3 right-3 bg-teal-500 text-white px-2 py-1 rounded-full text-sm font-medium">{item.category}</div>
+        {/* Category Badge - Smaller on mobile */}
+        <div className="absolute top-1 right-1 bg-teal-500 text-white px-1 py-0.5 rounded text-xs font-medium lg:top-2 lg:right-2 lg:px-2 lg:py-1 lg:text-sm">
+          {item.category}
+        </div>
       </div>
 
-      {/* Content */}
-      <div className="p-4">
-        <h3 className="font-bold text-lg text-gray-800 mb-2 line-clamp-2 group-hover:text-teal-600 transition duration-300">
+      {/* Content - Compact on mobile */}
+      <div className="p-2 lg:p-4">
+        {/* Title - Smaller font on mobile */}
+        <h3 className="font-semibold text-sm lg:text-lg text-gray-800 mb-1 lg:mb-2 line-clamp-2 group-hover:text-teal-600 transition duration-300 leading-tight">
           {item.title}
         </h3>
 
-        <p className="text-gray-600 text-sm mb-3 line-clamp-2">{item.description}</p>
+        {/* Description - Hidden on mobile, shown on desktop */}
+        <p className="text-gray-600 text-xs lg:text-sm mb-2 lg:mb-3 line-clamp-2 hidden sm:block">{item.description}</p>
 
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-2 lg:mb-3">
           <div>
-            <p className="text-2xl font-bold text-gray-900">₹{item.price.toLocaleString()}</p>
+            {/* Price - Smaller on mobile */}
+            <p className="text-lg lg:text-2xl font-bold text-gray-900">₹{item.price.toLocaleString()}</p>
             {item.original_price && item.original_price > item.price && (
-              <p className="text-sm text-gray-500 line-through">₹{item.original_price.toLocaleString()}</p>
+              <p className="text-xs lg:text-sm text-gray-500 line-through hidden sm:block">₹{item.original_price.toLocaleString()}</p>
             )}
           </div>
-          <span className="bg-amber-100 text-amber-700 px-2 py-1 rounded-full text-sm font-medium">{item.condition}</span>
+          {/* Condition badge - Smaller on mobile */}
+          <span className="bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded text-xs font-medium lg:px-2 lg:py-1 lg:text-sm">
+            {item.condition}
+          </span>
         </div>
 
-        <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+        {/* Location and Date - Smaller on mobile */}
+        <div className="flex items-center justify-between text-xs text-gray-500 mb-3 lg:mb-4">
           <div className="flex items-center space-x-1">
-            <FiMapPin className="text-amber-500" />
-            <span>{item.location}</span>
+            <FiMapPin className="text-amber-500 text-xs lg:text-sm" />
+            <span className="truncate max-w-[80px] lg:max-w-none">{item.location}</span>
           </div>
-          <span>{new Date(item.created_at).toLocaleDateString()}</span>
+          <span className="text-xs">{new Date(item.created_at).toLocaleDateString()}</span>
         </div>
 
+        {/* Button - Smaller on mobile */}
         <Link
           href={`/items/${item.id}`}
-          className="w-full bg-gray-800 text-white py-3 rounded-xl font-semibold hover:bg-teal-700 transition duration-300 block text-center">
+          className="w-full bg-gray-800 text-white py-2 lg:py-3 rounded-lg lg:rounded-xl font-semibold hover:bg-teal-700 transition duration-300 block text-center text-sm lg:text-base">
           View Details
         </Link>
       </div>

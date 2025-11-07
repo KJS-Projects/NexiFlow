@@ -14,12 +14,12 @@ export default function Footer2() {
                 <FiHome className="text-white text-lg" />
               </div>
               <div>
-                <span className="text-2xl font-bold">NexiFlow</span>
+                <span className="text-2xl font-bold">MyStore</span>
                 <span className="block text-xs text-teal-300 font-medium -mt-1">Second Hand</span>
               </div>
             </Link>
             <p className="text-teal-100 leading-relaxed mb-6 max-w-md">
-              NexiFlow is trusted marketplace for pre-loved items. We're committed to sustainable shopping by giving quality products a
+              MyStore is trusted marketplace for pre-loved items. We're committed to sustainable shopping by giving quality products a
               second life while helping our community save money and reduce waste.
             </p>
             <div className="flex space-x-4">
@@ -110,7 +110,7 @@ export default function Footer2() {
               </div>
               <div>
                 <span className="text-sm text-teal-300">Email</span>
-                <div className="text-teal-100 font-medium">support@nexiflow.com</div>
+                <div className="text-teal-100 font-medium">support@MyStore.com</div>
               </div>
             </div>
             <div className="flex items-center space-x-3">
@@ -136,7 +136,7 @@ export default function Footer2() {
 
         {/* Bottom Bar */}
         <div className="border-t border-teal-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <div className="text-teal-300 text-sm mb-4 md:mb-0">&copy; 2024 NexiFlow. All rights reserved.</div>
+          <div className="text-teal-300 text-sm mb-4 md:mb-0">&copy; 2024 MyStore. All rights reserved.</div>
           <div className="flex space-x-6 text-sm">
             <Link href="/privacy" className="text-teal-300 hover:text-amber-400 transition duration-300">
               Privacy Policy

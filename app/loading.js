@@ -8,7 +8,7 @@ export default function Loading() {
           <div className="w-20 h-20 bg-gradient-to-r from-teal-500 to-amber-500 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-pulse">
             <div className="w-8 h-8 bg-white rounded-lg"></div>
           </div>
-          <h1 className="text-2xl font-bold text-gray-800">NexiFlow</h1>
+          <h1 className="text-2xl font-bold text-gray-800">MyStore</h1>
           <p className="text-sm text-teal-600 font-medium">Second Hand</p>
         </div>
 

@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "NexiFlow",
+  title: "MyStore",
   description: "Your Second Hand MarketPlace",
 };
 
