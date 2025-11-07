@@ -16,9 +16,8 @@ import {
 } from "react-icons/fi";
 import Link from "next/link";
 
-export default async function ItemPage({ params, searchParams }) {
+export default async function ItemPage({ params }) {
   const { id } = await params;
-  const { success } = await searchParams;
 
   // Fetch item data
   let item;
@@ -44,18 +43,6 @@ export default async function ItemPage({ params, searchParams }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-teal-50/20">
-      {/* Success Banner */}
-      {success && (
-        <div className="bg-green-50 border-b border-green-200">
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex items-center justify-center space-x-2 text-green-700">
-              <FiCheckCircle className="text-green-500 text-xl" />
-              <span className="font-semibold">Your item has been listed successfully!</span>
-            </div>
-          </div>
-        </div>
-      )}
-
       <div className="container mx-auto px-4 py-8">
         {/* Navigation */}
         <div className="mb-6">

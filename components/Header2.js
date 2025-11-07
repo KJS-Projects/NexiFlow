@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FiHome, FiHeart, FiUser, FiPlusCircle, FiMapPin, FiFilter, FiChevronRight, FiX, FiSearch } from "react-icons/fi";
 
 export default function Header2() {
@@ -13,30 +13,74 @@ export default function Header2() {
     price: "",
   });
   const pathname = usePathname();
+  const router = useRouter();
 
   const categories = ["Electronics", "Furniture", "Fashion", "Sports", "Books", "Vehicles", "Real Estate", "Toys", "Mobile", "Laptop"];
 
   const locations = ["Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad", "Pune", "Kolkata", "Ahmedabad"];
 
-  // const priceRanges = ["Under ₹1K", "₹1K-5K", "₹5K-10K", "₹10K-20K", "Above ₹20K"];
+  // Function to build browse URL with filters
+  const buildBrowseUrl = (filters = {}) => {
+    const params = new URLSearchParams();
+
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value && value.trim() !== "") {
+        params.set(key, value);
+      }
+    });
+
+    return `/browse?${params.toString()}`;
+  };
 
   const handleFilterClick = (type, value) => {
-    setActiveFilters((prev) => ({
-      ...prev,
-      [type]: prev[type] === value ? "" : value,
-    }));
+    const newFilters = {
+      ...activeFilters,
+      [type]: activeFilters[type] === value ? "" : value,
+    };
+
+    setActiveFilters(newFilters);
+
+    // Navigate to browse page with the selected filter
+    if (newFilters[type] === value) {
+      // Only navigate if we're setting the filter (not clearing it)
+      router.push(buildBrowseUrl(newFilters));
+    } else {
+      // If clearing the filter, navigate with remaining filters
+      const remainingFilters = { ...newFilters };
+      remainingFilters[type] = "";
+      router.push(buildBrowseUrl(remainingFilters));
+    }
   };
 
   const clearFilters = () => {
     setActiveFilters({ category: "", location: "", price: "" });
+    router.push("/browse");
   };
 
   const removeFilter = (type) => {
-    setActiveFilters((prev) => ({
-      ...prev,
-      [type]: "",
-    }));
+    const newFilters = { ...activeFilters, [type]: "" };
+    setActiveFilters(newFilters);
+    router.push(buildBrowseUrl(newFilters));
   };
+
+  // Make filter buttons actual links for better SEO and accessibility
+  const FilterButton = ({ type, value, children, isActive, onClick }) => (
+    <Link
+      href={buildBrowseUrl({ ...activeFilters, [type]: isActive ? "" : value })}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick(type, value);
+      }}
+      className={`px-3 py-1 rounded-full border transition-all duration-300 text-xs font-medium whitespace-nowrap ${
+        isActive
+          ? type === "category"
+            ? "bg-teal-500 text-white border-teal-500 shadow-sm"
+            : "bg-amber-500 text-white border-amber-500 shadow-sm"
+          : "bg-white text-gray-700 border-gray-300 hover:border-teal-300 hover:text-teal-600"
+      }`}>
+      {children}
+    </Link>
+  );
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-lg">
@@ -118,7 +162,7 @@ export default function Header2() {
                   {activeFilters.category && (
                     <span className="flex items-center space-x-1 px-2 py-1 bg-teal-100 text-teal-700 rounded-full text-xs font-medium">
                       {activeFilters.category}
-                      <button onClick={() => removeFilter("category")} className="hover:text-teal-900">
+                      <button onClick={() => removeFilter("category")} className="hover:text-teal-900 transition duration-300">
                         <FiX className="text-xs" />
                       </button>
                     </span>
@@ -126,7 +170,7 @@ export default function Header2() {
                   {activeFilters.location && (
                     <span className="flex items-center space-x-1 px-2 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-medium">
                       {activeFilters.location}
-                      <button onClick={() => removeFilter("location")} className="hover:text-amber-900">
+                      <button onClick={() => removeFilter("location")} className="hover:text-amber-900 transition duration-300">
                         <FiX className="text-xs" />
                       </button>
                     </span>
@@ -134,7 +178,7 @@ export default function Header2() {
                   {activeFilters.price && (
                     <span className="flex items-center space-x-1 px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium">
                       {activeFilters.price}
-                      <button onClick={() => removeFilter("price")} className="hover:text-gray-900">
+                      <button onClick={() => removeFilter("price")} className="hover:text-gray-900 transition duration-300">
                         <FiX className="text-xs" />
                       </button>
                     </span>
@@ -148,74 +192,46 @@ export default function Header2() {
           </div>
 
           {/* Horizontal Filter Row with Scrolling */}
-          <div className="flex flex-col space-y-4 space-x-4 pb-1 overflow-x-auto scrollbar-hide">
+          <div className="flex space-x-4 pb-1 overflow-x-auto scrollbar-hide">
             {/* Categories Section */}
-            <div className="flex items-center space-x-2 shrink-0 justify-around">
-              <div className="">
-                {/* <div className="flex items-center space-x-1 text-xs font-semibold text-gray-700 whitespace-nowrap">
-                  <FiFilter className="text-teal-600" />
-                  <span>Categories:</span>
-                </div> */}
-                <div className="flex space-x-1">
-                  {categories.map((category, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleFilterClick("category", category)}
-                      className={`px-3 py-1 rounded-full border transition-all duration-300 text-xs font-medium whitespace-nowrap ${
-                        activeFilters.category === category
-                          ? "bg-teal-500 text-white border-teal-500 shadow-sm"
-                          : "bg-white text-gray-700 border-gray-300 hover:border-teal-300 hover:text-teal-600"
-                      }`}>
-                      {category}
-                    </button>
-                  ))}
-                </div>
+            <div className="flex items-center space-x-2 flex-shrink-0">
+              <div className="flex items-center space-x-1 text-xs font-semibold text-gray-700 whitespace-nowrap">
+                <FiFilter className="text-teal-600" />
+                <span>Categories:</span>
               </div>
-
-              {/* Locations Section */}
-
-              <div>
-                {/* <div className="flex items-center space-x-1 text-xs font-semibold text-gray-700 whitespace-nowrap">
-                  <FiMapPin className="text-amber-600" />
-                  <span>Locations:</span>
-                </div> */}
-                <div className="flex space-x-1">
-                  {locations.map((location, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleFilterClick("location", location)}
-                      className={`px-3 py-1 rounded-full border transition-all duration-300 text-xs font-medium whitespace-nowrap ${
-                        activeFilters.location === location
-                          ? "bg-amber-500 text-white border-amber-500 shadow-sm"
-                          : "bg-white text-gray-700 border-gray-300 hover:border-amber-300 hover:text-amber-600"
-                      }`}>
-                      {location}
-                    </button>
-                  ))}
-                </div>
+              <div className="flex space-x-1">
+                {categories.map((category, index) => (
+                  <FilterButton
+                    key={index}
+                    type="category"
+                    value={category}
+                    isActive={activeFilters.category === category}
+                    onClick={handleFilterClick}>
+                    {category}
+                  </FilterButton>
+                ))}
               </div>
             </div>
 
-            {/* Price Ranges Section */}
-            {/* <div className="flex items-center space-x-2 flex-shrink-0 justify-center">
+            {/* Locations Section */}
+            <div className="flex items-center space-x-2 flex-shrink-0">
               <div className="flex items-center space-x-1 text-xs font-semibold text-gray-700 whitespace-nowrap">
-                <span>Price:</span>
+                <FiMapPin className="text-amber-600" />
+                <span>Locations:</span>
               </div>
               <div className="flex space-x-1">
-                {priceRanges.map((range, index) => (
-                  <button
+                {locations.map((location, index) => (
+                  <FilterButton
                     key={index}
-                    onClick={() => handleFilterClick("price", range)}
-                    className={`px-3 py-1 rounded-full border transition-all duration-300 text-xs font-medium whitespace-nowrap ${
-                      activeFilters.price === range
-                        ? "bg-gray-800 text-white border-gray-800 shadow-sm"
-                        : "bg-white text-gray-700 border-gray-300 hover:border-gray-400 hover:text-gray-900"
-                    }`}>
-                    {range}
-                  </button>
+                    type="location"
+                    value={location}
+                    isActive={activeFilters.location === location}
+                    onClick={handleFilterClick}>
+                    {location}
+                  </FilterButton>
                 ))}
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
