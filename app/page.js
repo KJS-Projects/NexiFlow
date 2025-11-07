@@ -282,7 +282,7 @@ export default async function HomePage() {
                   </div>
 
                   <Link
-                    href={`/item/${product.id}`}
+                    href={`/items/${product.id}`}
                     className="w-full bg-gray-800 text-white py-3 rounded-xl font-semibold hover:bg-teal-700 transition duration-300 group-hover:bg-teal-600 block text-center">
                     View Details
                   </Link>

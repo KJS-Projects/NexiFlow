@@ -1,4 +1,6 @@
 // app/browse/page.js
+import { Suspense } from "react";
+import { ProductCardSkeleton } from "@/components/ProductCardSkeleton";
 import { getPaginatedItems, getAllItems } from "@/lib/queries/items";
 import {
   FiSearch,
@@ -165,11 +167,20 @@ export default async function BrowsePage({ searchParams }) {
             {/* Items Grid/List */}
             {items.length > 0 ? (
               <>
-                <div className={view === "grid" ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" : "space-y-6 mb-8"}>
-                  {items.map((item) => (
-                    <ItemCard key={item.id} item={item} view={view} />
-                  ))}
-                </div>
+                <Suspense
+                  fallback={
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {[...Array(6)].map((_, i) => (
+                        <ProductCardSkeleton key={i} />
+                      ))}
+                    </div>
+                  }>
+                  <div className={view === "grid" ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" : "space-y-6 mb-8"}>
+                    {items.map((item) => (
+                      <ItemCard key={item.id} item={item} view={view} />
+                    ))}
+                  </div>
+                </Suspense>
 
                 {/* Pagination */}
                 {pagination.totalPages > 1 && (
