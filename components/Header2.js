@@ -18,7 +18,7 @@ export default function Header2() {
 
   const locations = ["Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad", "Pune", "Kolkata", "Ahmedabad"];
 
-  const priceRanges = ["Under ₹1K", "₹1K-5K", "₹5K-10K", "₹10K-20K", "Above ₹20K"];
+  // const priceRanges = ["Under ₹1K", "₹1K-5K", "₹5K-10K", "₹10K-20K", "Above ₹20K"];
 
   const handleFilterClick = (type, value) => {
     setActiveFilters((prev) => ({
@@ -197,7 +197,7 @@ export default function Header2() {
             </div>
 
             {/* Price Ranges Section */}
-            <div className="flex items-center space-x-2 flex-shrink-0 justify-center">
+            {/* <div className="flex items-center space-x-2 flex-shrink-0 justify-center">
               <div className="flex items-center space-x-1 text-xs font-semibold text-gray-700 whitespace-nowrap">
                 <span>Price:</span>
               </div>
@@ -215,7 +215,7 @@ export default function Header2() {
                   </button>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
