@@ -23,7 +23,7 @@ export default async function BrowsePage({ searchParams }) {
 
   const pageParam = params.page;
   const page = parseInt(pageParam) || 1;
-  const limit = 2;
+  const limit = 12;
 
   const { category, location, minPrice, maxPrice, search, view = "grid" } = await searchParams;
 

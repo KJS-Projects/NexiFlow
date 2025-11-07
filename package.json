@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "seed": "node scripts/seed-database.js",
+    "seed:dev": "node -r dotenv/config scripts/seed-database.js"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",

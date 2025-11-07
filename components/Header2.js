@@ -152,10 +152,10 @@ export default function Header2() {
             {/* Categories Section */}
             <div className="flex items-center space-x-2 shrink-0 justify-around">
               <div className="">
-                <div className="flex items-center space-x-1 text-xs font-semibold text-gray-700 whitespace-nowrap">
+                {/* <div className="flex items-center space-x-1 text-xs font-semibold text-gray-700 whitespace-nowrap">
                   <FiFilter className="text-teal-600" />
                   <span>Categories:</span>
-                </div>
+                </div> */}
                 <div className="flex space-x-1">
                   {categories.map((category, index) => (
                     <button
@@ -175,10 +175,10 @@ export default function Header2() {
               {/* Locations Section */}
 
               <div>
-                <div className="flex items-center space-x-1 text-xs font-semibold text-gray-700 whitespace-nowrap">
+                {/* <div className="flex items-center space-x-1 text-xs font-semibold text-gray-700 whitespace-nowrap">
                   <FiMapPin className="text-amber-600" />
                   <span>Locations:</span>
-                </div>
+                </div> */}
                 <div className="flex space-x-1">
                   {locations.map((location, index) => (
                     <button
