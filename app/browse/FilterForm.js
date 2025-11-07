@@ -51,6 +51,12 @@ export default function FilterForm({ categories, locations, initialValues }) {
         />
       </div>
 
+      <button
+        type="submit"
+        className="w-full bg-gradient-to-r from-teal-500 to-amber-500 text-white py-3 rounded-xl font-semibold hover:from-teal-600 hover:to-amber-600 transition duration-300 shadow-lg shadow-teal-500/25">
+        Apply Filters
+      </button>
+
       {/* Category Filter */}
       <div className="mb-6">
         <h3 className="font-semibold text-gray-700 mb-3 flex items-center">
