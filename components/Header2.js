@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { FiHome, FiHeart, FiUser, FiPlusCircle, FiMapPin, FiFilter, FiChevronRight, FiX } from "react-icons/fi";
+import { FiHome, FiHeart, FiUser, FiPlusCircle, FiMapPin, FiFilter, FiChevronRight, FiX, FiSearch } from "react-icons/fi";
 
 export default function Header2() {
   const [activeFilters, setActiveFilters] = useState({
@@ -60,6 +60,7 @@ export default function Header2() {
               <Link
                 href="/browse"
                 className="flex items-center space-x-1 px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:bg-teal-50 hover:text-teal-600 text-gray-600">
+                <FiSearch className="text-lg" />
                 <span>Browse</span>
               </Link>
               <Link
