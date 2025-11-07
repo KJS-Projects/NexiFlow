@@ -74,7 +74,7 @@ export default async function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                href="/sell"
+                href="/items/new"
                 className="inline-flex items-center justify-center space-x-2 bg-amber-500 text-teal-900 px-8 py-4 rounded-xl font-bold hover:bg-amber-400 transition duration-300 shadow-lg shadow-amber-500/25">
                 <FiDollarSign className="text-lg" />
                 <span>Start Selling</span>

@@ -4,8 +4,9 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FiSearch, FiMapPin, FiTag, FiDollarSign } from "react-icons/fi";
+import { FilterLoading } from "@/components/LoadingStates";
 
-export default function FilterForm({ categories, locations, initialValues }) {
+export default function FilterForm({ loading = false, categories, locations, initialValues }) {
   const router = useRouter();
   const [formValues, setFormValues] = useState(initialValues);
 
@@ -32,6 +33,10 @@ export default function FilterForm({ categories, locations, initialValues }) {
     // Navigate to the filtered URL
     router.push(`/browse?${params.toString()}`);
   };
+
+  if (loading) {
+    return <FilterLoading />;
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">

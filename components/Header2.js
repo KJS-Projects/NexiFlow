@@ -113,7 +113,7 @@ export default function Header2() {
                 <span>Categories</span>
               </Link>
               <Link
-                href="/sell"
+                href="/items/new"
                 className="flex items-center space-x-1 ml-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-lg font-medium hover:from-teal-600 hover:to-amber-600 transition-all duration-300 shadow-lg shadow-teal-500/25">
                 <FiPlusCircle className="text-lg" />
                 <span>Sell Item</span>

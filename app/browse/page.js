@@ -345,7 +345,7 @@ function ItemCard({ item, view }) {
                   )}
                 </div>
                 <Link
-                  href={`/item/${item.id}`}
+                  href={`/items/${item.id}`}
                   className="bg-gray-800 text-white px-6 py-3 rounded-xl font-semibold hover:bg-teal-700 transition duration-300">
                   View Details
                 </Link>
@@ -412,7 +412,7 @@ function ItemCard({ item, view }) {
         </div>
 
         <Link
-          href={`/item/${item.id}`}
+          href={`/items/${item.id}`}
           className="w-full bg-gray-800 text-white py-3 rounded-xl font-semibold hover:bg-teal-700 transition duration-300 block text-center">
           View Details
         </Link>
