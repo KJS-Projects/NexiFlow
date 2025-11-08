@@ -17,6 +17,7 @@ import {
   FiLogOut,
   FiSettings,
   FiShoppingBag,
+  FiMessageSquare,
 } from "react-icons/fi";
 import { auth } from "@/utils/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
@@ -142,6 +143,14 @@ export default function Header2() {
       </Link>
 
       <Link
+        href="/chats"
+        onClick={() => setShowUserMenu(false)}
+        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition duration-200">
+        <FiMessageSquare className="text-base" />
+        <span>My Chats</span>
+      </Link>
+
+      <Link
         href="/favorites"
         onClick={() => setShowUserMenu(false)}
         className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition duration-200">
@@ -223,9 +232,11 @@ export default function Header2() {
 
             {/* Auth Buttons / User Menu */}
             <div className="flex items-center space-x-3">
-              <button className="p-2 text-gray-600 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition duration-300">
-                <FiHeart className="text-xl" />
-              </button>
+              <Link href={user ? "/favorites" : "/signin"}>
+                <button className="p-2 text-gray-600 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition duration-300">
+                  <FiHeart className="text-xl" />
+                </button>
+              </Link>
 
               {user ? (
                 // User is logged in - Show user menu

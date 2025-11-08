@@ -23,6 +23,7 @@ import { getSellerStats } from "@/lib/queries/items";
 import { getFavoriteCount } from "@/lib/queries/favorite";
 import FavoriteButton from "@/components/FavoriteButton";
 import ItemOwnerActions from "@/components/ItemOwnerActions";
+import StartChatButton from "@/components/Start-chat-button";
 
 export default async function ItemPage({ params }) {
   const { id } = await params;
@@ -31,7 +32,6 @@ export default async function ItemPage({ params }) {
   let item;
   try {
     item = await getItemById(parseInt(id));
-    console.log(item);
   } catch (error) {
     console.error("Error fetching item:", error);
     notFound();
@@ -205,10 +205,12 @@ export default async function ItemPage({ params }) {
               </div>
 
               {/* View Seller's Other Items Button */}
-              <button className="w-full mt-4 border-2 border-teal-500 text-teal-600 py-3 rounded-xl font-semibold hover:bg-teal-50 transition duration-300 flex items-center justify-center space-x-2">
+              <Link
+                href={`/browse?seller=${item.user_id}`}
+                className="w-full mt-4 border-2 border-teal-500 text-teal-600 py-3 rounded-xl font-semibold hover:bg-teal-50 transition duration-300 flex items-center justify-center space-x-2">
                 <FiShoppingBag className="text-lg" />
                 <span>View Seller's Other Items</span>
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -245,9 +247,9 @@ export default async function ItemPage({ params }) {
                 {/* Action Buttons */}
                 <div className="flex items-center space-x-2 ml-4">
                   <FavoriteButton itemId={parseInt(id)} initialFavoriteCount={favoriteCount} />
-                  <button className="p-3 bg-gray-100 rounded-xl hover:bg-gray-200 transition duration-300">
+                  {/* <button className="p-3 bg-gray-100 rounded-xl hover:bg-gray-200 transition duration-300">
                     <FiShare2 className="text-gray-600 text-xl" />
-                  </button>
+                  </button> */}
                 </div>
               </div>
 
@@ -274,6 +276,8 @@ export default async function ItemPage({ params }) {
                 }`}>
                 {item.status === "sold" ? "Item Sold" : "Contact Seller"}
               </button>
+
+              <StartChatButton item={item} className="w-full" />
             </div>
 
             {/* Rest of your existing sections remain the same */}

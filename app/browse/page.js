@@ -27,7 +27,7 @@ export default async function BrowsePage({ searchParams }) {
   const page = parseInt(pageParam) || 1;
   const limit = 12;
 
-  const { category, location, minPrice, maxPrice, search, view = "grid" } = await searchParams;
+  const { category, location, minPrice, maxPrice, search, view = "grid", seller } = await searchParams;
 
   // Get paginated items
   const { items, pagination } = await getPaginatedItems({
@@ -38,6 +38,7 @@ export default async function BrowsePage({ searchParams }) {
     minPrice,
     maxPrice,
     search,
+    seller,
   });
 
   // Get all items for filter options (without pagination)
@@ -56,6 +57,7 @@ export default async function BrowsePage({ searchParams }) {
     if (minPrice) params.set("minPrice", minPrice);
     if (maxPrice) params.set("maxPrice", maxPrice);
     if (view) params.set("view", view);
+    if (seller) params.set("seller", seller);
 
     // Set the new page
     params.set("page", newPage.toString());
