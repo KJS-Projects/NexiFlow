@@ -193,7 +193,7 @@ export default function MyItemsClient() {
 
                     {item.status === "active" && (
                       <Link
-                        href={`/items/${item.id}`}
+                        href={`/items/${item.id}/edit`}
                         className="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg font-semibold hover:bg-gray-50 transition duration-300 text-center text-sm flex items-center justify-center space-x-1">
                         <FiEdit className="text-sm" />
                         <span>Manage</span>

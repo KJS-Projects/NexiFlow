@@ -1,12 +1,13 @@
 // app/signup/page.js
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "@/utils/firebase"; // Adjust the import path based on your firebase.js location
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FiMail, FiLock, FiUser, FiEye, FiEyeOff, FiArrowLeft } from "react-icons/fi";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -20,6 +21,47 @@ export default function SignUpPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const [user, setUser] = useState(null);
+  const [authChecked, setAuthChecked] = useState(false);
+
+  useEffect(() => {
+    // 1. Set up the listener
+    const unsubscribe = onAuthStateChanged(auth, (u) => {
+      setUser(u);
+      setAuthChecked(true); // Mark the check as complete
+    });
+
+    // 2. Cleanup the listener
+    return () => unsubscribe();
+  }, [router]); // Added router to dependency array for clarity (though usually not necessary for next/navigation)
+
+  // 3. Add a second useEffect for redirection logic
+  useEffect(() => {
+    // Only attempt to redirect if the auth check is complete AND a user is found
+    if (authChecked && user) {
+      console.log("User is already logged in. Redirecting to home.");
+      router.replace("/profile"); // Use replace to prevent back navigation to the signup page
+    }
+  }, [user, authChecked, router]);
+
+  // If the user is logged in, and we know it, we should render nothing (or a loading spinner) while redirecting.
+  if (authChecked && user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  // Only render the form if the auth check is complete AND no user is logged in
+  if (!authChecked) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   const handleChange = (e) => {
     setFormData({

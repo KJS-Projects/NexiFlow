@@ -1,8 +1,8 @@
-// app/sell/page.js
+// app/items/[id]/edit/page.js
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import {
   FiUpload,
   FiCamera,
@@ -15,31 +15,74 @@ import {
   FiCheck,
   FiArrowLeft,
   FiAlertCircle,
-  FiLogIn,
+  FiEdit,
 } from "react-icons/fi";
-import { handleCreateItem } from "@/actions/addItemActions";
 import { auth } from "@/utils/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import Link from "next/link";
 
-export default function SellPage() {
+export default function EditItemPage() {
   const router = useRouter();
+  const params = useParams();
+  const itemId = params.id;
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [imagePreviews, setImagePreviews] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [item, setItem] = useState(null);
   const fileInputRef = useRef(null);
 
-  // Check if user is authenticated
+  // Check if user is authenticated and load item data
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
+
+      if (user && itemId) {
+        await loadItemData(itemId, user.uid);
+      }
+
       setLoading(false);
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [itemId]);
+
+  const loadItemData = async (itemId, userId) => {
+    try {
+      const response = await fetch(`/api/items/${itemId}`);
+
+      if (!response.ok) {
+        throw new Error("Failed to load item data");
+      }
+
+      const itemData = await response.json();
+
+      // Check if user owns this item
+      if (itemData.user_id !== userId) {
+        setError("You don't have permission to edit this item");
+        setItem(null);
+        return;
+      }
+
+      setItem(itemData);
+
+      // Set existing images
+      if (itemData.image_urls && itemData.image_urls.length > 0) {
+        setImagePreviews(
+          itemData.image_urls.map((url) => ({
+            url,
+            isExisting: true,
+          }))
+        );
+      }
+    } catch (error) {
+      console.error("Error loading item:", error);
+      setError("Failed to load item data");
+    }
+  };
 
   const categories = [
     "Electronics",
@@ -75,7 +118,9 @@ export default function SellPage() {
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
-    if (files.length + imagePreviews.length > 8) {
+    const totalImages = imagePreviews.filter((img) => !img.isExisting).length + files.length;
+
+    if (totalImages > 8) {
       setError("Maximum 8 images allowed");
       return;
     }
@@ -83,6 +128,7 @@ export default function SellPage() {
     const newPreviews = files.map((file) => ({
       file,
       preview: URL.createObjectURL(file),
+      isExisting: false,
     }));
 
     setImagePreviews((prev) => [...prev, ...newPreviews]);
@@ -96,37 +142,124 @@ export default function SellPage() {
   const removeImage = (index) => {
     setImagePreviews((prev) => {
       const newPreviews = [...prev];
-      URL.revokeObjectURL(newPreviews[index].preview);
+      const removed = newPreviews[index];
+
+      // Only revoke URL if it's a new image (not existing)
+      if (!removed.isExisting) {
+        URL.revokeObjectURL(removed.preview);
+      }
+
       newPreviews.splice(index, 1);
       return newPreviews;
     });
   };
 
-  const handleSubmit = async (formData) => {
-    if (!currentUser) {
-      setError("Please sign in to list an item");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!currentUser || !item) {
+      setError("Please sign in to edit this item");
       return;
     }
 
     setIsSubmitting(true);
     setError("");
+    setSuccess("");
 
     try {
-      // Add user data to formData
-      formData.append("userId", currentUser.uid);
-      formData.append("userEmail", currentUser.email);
-      formData.append("userName", currentUser.displayName || currentUser.email);
+      const formData = new FormData(e.target);
 
-      // Add image files to formData with unique names
-      imagePreviews.forEach((preview, index) => {
-        formData.append(`image-${index}`, preview.file);
+      // Prepare the data for API
+      const itemData = {
+        title: formData.get("title"),
+        description: formData.get("description"),
+        category: formData.get("category"),
+        price: parseFloat(formData.get("price")),
+        originalPrice: formData.get("originalPrice") ? parseFloat(formData.get("originalPrice")) : null,
+        location: formData.get("location"),
+        condition: formData.get("condition"),
+        contactName: formData.get("contactName"),
+        contactPhone: formData.get("contactPhone"),
+      };
+
+      // Validate required fields
+      if (
+        !itemData.title ||
+        !itemData.description ||
+        !itemData.category ||
+        !itemData.price ||
+        !itemData.location ||
+        !itemData.condition ||
+        !itemData.contactName ||
+        !itemData.contactPhone
+      ) {
+        throw new Error("All required fields must be filled");
+      }
+
+      // Handle image uploads
+      const newImageFiles = [];
+      const existingImages = [];
+
+      // Separate existing and new images
+      imagePreviews.forEach((preview) => {
+        if (preview.isExisting) {
+          existingImages.push(preview.url);
+        } else if (preview.file) {
+          newImageFiles.push(preview.file);
+        }
       });
 
-      console.log("Submitting form with user:", currentUser.uid);
+      // Upload new images to Vercel Blob
+      const newImageUrls = [];
+      for (const imageFile of newImageFiles) {
+        try {
+          const uploadFormData = new FormData();
+          uploadFormData.append("image", imageFile);
 
-      await handleCreateItem(formData);
+          const uploadResponse = await fetch("/api/upload", {
+            method: "POST",
+            body: uploadFormData,
+          });
+
+          if (!uploadResponse.ok) {
+            throw new Error("Failed to upload image");
+          }
+
+          const { url } = await uploadResponse.json();
+          newImageUrls.push(url);
+        } catch (error) {
+          console.error("Failed to upload image:", error);
+          throw new Error("Failed to upload one or more images");
+        }
+      }
+
+      // Combine existing and new images
+      itemData.imageUrls = [...existingImages, ...newImageUrls];
+
+      // Update item via API
+      const updateResponse = await fetch(`/api/items/${itemId}/update`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(itemData),
+      });
+
+      const result = await updateResponse.json();
+
+      if (!result.success) {
+        throw new Error(result.error || "Failed to update item");
+      }
+
+      setSuccess("Item updated successfully!");
+
+      // Redirect to item page after a short delay
+      setTimeout(() => {
+        router.push(`/items/${itemId}?success=updated`);
+      }, 2000);
     } catch (err) {
-      setError(err.message || "Failed to create listing");
+      setError(err.message || "Failed to update listing");
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -150,31 +283,47 @@ export default function SellPage() {
     );
   }
 
-  // Show login prompt if user is not authenticated
-  if (!currentUser) {
+  // Show error if user doesn't own the item or item not found
+  if (error && !item) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-teal-50/20 flex items-center justify-center py-12 px-4">
         <div className="max-w-md w-full text-center">
           <div className="bg-white rounded-2xl shadow-lg p-8">
-            <div className="w-20 h-20 bg-gradient-to-r from-teal-500 to-amber-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <FiLogIn className="text-white text-2xl" />
+            <div className="w-20 h-20 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <FiAlertCircle className="text-white text-2xl" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Sign In Required</h2>
-            <p className="text-gray-600 mb-6">
-              You need to be signed in to list items for sale. Please sign in or create an account to continue.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Access Denied</h2>
+            <p className="text-gray-600 mb-6">{error}</p>
+            <div className="flex flex-col gap-4">
               <Link
-                href="/signin"
-                className="flex-1 px-6 py-3 border-2 border-teal-500 text-teal-600 rounded-xl font-semibold hover:bg-teal-50 transition duration-300">
-                Sign In
+                href="/my-items"
+                className="px-6 py-3 bg-teal-500 text-white rounded-xl font-semibold hover:bg-teal-600 transition duration-300">
+                Back to My Items
               </Link>
               <Link
-                href="/signup"
-                className="flex-1 px-6 py-3 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-xl font-semibold hover:from-teal-600 hover:to-amber-600 transition duration-300 shadow-lg shadow-teal-500/25">
-                Sign Up
+                href="/"
+                className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition duration-300">
+                Go Home
               </Link>
             </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!item) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-teal-50/20 flex items-center justify-center py-12 px-4">
+        <div className="max-w-md w-full text-center">
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Item Not Found</h2>
+            <p className="text-gray-600 mb-6">The item you're trying to edit doesn't exist.</p>
+            <Link
+              href="/my-items"
+              className="px-6 py-3 bg-teal-500 text-white rounded-xl font-semibold hover:bg-teal-600 transition duration-300">
+              Back to My Items
+            </Link>
           </div>
         </div>
       </div>
@@ -186,26 +335,42 @@ export default function SellPage() {
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
         <div className="mb-8">
-          <button
-            onClick={() => router.back()}
-            className="flex items-center space-x-2 text-teal-600 hover:text-teal-700 font-medium mb-4 transition duration-300">
-            <FiArrowLeft className="text-lg" />
-            <span>Back</span>
-          </button>
+          <div className="flex items-center justify-between mb-4">
+            <button
+              onClick={() => router.back()}
+              className="flex items-center space-x-2 text-teal-600 hover:text-teal-700 font-medium transition duration-300">
+              <FiArrowLeft className="text-lg" />
+              <span>Back</span>
+            </button>
+
+            <Link
+              href={`/items/${itemId}`}
+              className="flex items-center space-x-2 text-gray-600 hover:text-gray-700 font-medium transition duration-300">
+              <span>View Item</span>
+            </Link>
+          </div>
 
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">Sell Your Item</h1>
+            <h1 className="text-4xl font-bold text-gray-800 mb-4">Edit Your Item</h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Fill in the details below to list your item. The more information you provide, the faster it will sell.
+              Update your item details below. Changes will be reflected immediately.
             </p>
             <div className="mt-4 flex items-center justify-center space-x-2 text-sm text-teal-600">
               <FiUser className="text-base" />
               <span>
-                Listing as: <strong>{currentUser.displayName || currentUser.email}</strong>
+                Editing as: <strong>{currentUser.displayName || currentUser.email}</strong>
               </span>
             </div>
           </div>
         </div>
+
+        {/* Success Message */}
+        {success && (
+          <div className="bg-green-50 border border-green-200 rounded-2xl p-4 mb-6 flex items-center space-x-3">
+            <FiCheck className="text-green-500 text-xl flex-shrink-0" />
+            <p className="text-green-700">{success}</p>
+          </div>
+        )}
 
         {/* Error Message */}
         {error && (
@@ -215,35 +380,12 @@ export default function SellPage() {
           </div>
         )}
 
-        {/* Progress Steps */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-          <div className="flex items-center justify-between">
-            {["Item Details", "Photos", "Contact Info", "Review"].map((step, index) => (
-              <div key={step} className="flex items-center">
-                <div
-                  className={`flex items-center justify-center w-10 h-10 rounded-full border-2 font-semibold ${
-                    index === 0 ? "bg-teal-500 border-teal-500 text-white" : "border-gray-300 text-gray-400"
-                  }`}>
-                  {index === 0 ? <FiCheck className="text-lg" /> : index + 1}
-                </div>
-                <span className={`ml-2 font-medium hidden sm:block ${index === 0 ? "text-teal-600" : "text-gray-500"}`}>{step}</span>
-                {index < 3 && <div className={`w-8 sm:w-16 h-0.5 mx-4 ${index === 0 ? "bg-teal-500" : "bg-gray-300"}`} />}
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Main Form */}
-        <form action={handleSubmit} className="space-y-6">
-          {/* Hidden user data fields */}
-          <input type="hidden" name="userId" value={currentUser.uid} />
-          <input type="hidden" name="userEmail" value={currentUser.email} />
-          <input type="hidden" name="userName" value={currentUser.displayName || currentUser.email} />
-
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Item Details Card */}
           <div className="bg-white rounded-2xl shadow-lg p-6">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-              <FiTag className="text-teal-600 mr-3" />
+              <FiEdit className="text-teal-600 mr-3" />
               Item Details
             </h2>
 
@@ -255,6 +397,7 @@ export default function SellPage() {
                   type="text"
                   name="title"
                   required
+                  defaultValue={item.title}
                   placeholder="e.g., MacBook Pro 2020 - Excellent Condition"
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-300"
                 />
@@ -267,6 +410,7 @@ export default function SellPage() {
                   name="description"
                   required
                   rows={4}
+                  defaultValue={item.description}
                   placeholder="Describe your item in detail. Include features, specifications, and any flaws..."
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-300 resize-none"
                 />
@@ -278,6 +422,7 @@ export default function SellPage() {
                 <select
                   name="category"
                   required
+                  defaultValue={item.category}
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-300">
                   <option value="">Select Category</option>
                   {categories.map((category) => (
@@ -294,6 +439,7 @@ export default function SellPage() {
                 <select
                   name="condition"
                   required
+                  defaultValue={item.condition}
                   className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-300">
                   <option value="">Select Condition</option>
                   {conditions.map((condition) => (
@@ -315,6 +461,7 @@ export default function SellPage() {
                     required
                     min="0"
                     step="0.01"
+                    defaultValue={item.price}
                     placeholder="0.00"
                     className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-300"
                   />
@@ -331,6 +478,7 @@ export default function SellPage() {
                     name="originalPrice"
                     min="0"
                     step="0.01"
+                    defaultValue={item.original_price || ""}
                     placeholder="0.00"
                     className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-300"
                   />
@@ -345,6 +493,7 @@ export default function SellPage() {
                   <select
                     name="location"
                     required
+                    defaultValue={item.location}
                     className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-300">
                     <option value="">Select Your City</option>
                     {locations.map((location) => (
@@ -370,26 +519,33 @@ export default function SellPage() {
               {/* Image Upload Box */}
               <label className="aspect-square border-2 border-dashed border-gray-300 rounded-2xl flex flex-col items-center justify-center cursor-pointer hover:border-teal-400 hover:bg-teal-50 transition duration-300 group">
                 <FiUpload className="text-3xl text-gray-400 group-hover:text-teal-500 mb-2" />
-                <span className="text-sm text-gray-500 group-hover:text-teal-600 text-center px-2">Add Photos</span>
+                <span className="text-sm text-gray-500 group-hover:text-teal-600 text-center px-2">Add More Photos</span>
                 <input ref={fileInputRef} type="file" multiple accept="image/*" onChange={handleImageUpload} className="hidden" />
               </label>
 
               {/* Image Previews */}
               {imagePreviews.map((preview, index) => (
                 <div key={index} className="aspect-square relative group">
-                  <img src={preview.preview} alt={`Preview ${index + 1}`} className="w-full h-full object-cover rounded-2xl" />
+                  <img
+                    src={preview.isExisting ? preview.url : preview.preview}
+                    alt={`Preview ${index + 1}`}
+                    className="w-full h-full object-cover rounded-2xl"
+                  />
                   <button
                     type="button"
                     onClick={() => removeImage(index)}
                     className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition duration-300">
                     ×
                   </button>
+                  {preview.isExisting && (
+                    <div className="absolute top-2 left-2 bg-teal-500 text-white text-xs px-2 py-1 rounded-full">Existing</div>
+                  )}
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 rounded-2xl transition duration-300" />
                 </div>
               ))}
             </div>
 
-            <p className="text-sm text-gray-500 text-center">Upload up to 8 clear photos. First image will be the cover photo.</p>
+            <p className="text-sm text-gray-500 text-center">You can add new photos or remove existing ones. Maximum 8 photos total.</p>
           </div>
 
           {/* Contact Information Card */}
@@ -409,7 +565,7 @@ export default function SellPage() {
                     type="text"
                     name="contactName"
                     required
-                    defaultValue={currentUser.displayName || ""}
+                    defaultValue={item.contact_name}
                     placeholder="Enter your full name"
                     className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-300"
                   />
@@ -425,29 +581,11 @@ export default function SellPage() {
                     type="tel"
                     name="contactPhone"
                     required
+                    defaultValue={item.contact_phone}
                     placeholder="+91 98765 43210"
                     className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-300"
                   />
                 </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Terms and Conditions */}
-          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6">
-            <div className="flex items-start space-x-3">
-              <div className="flex-shrink-0 w-5 h-5 mt-0.5">
-                <FiFileText className="text-amber-600 text-lg" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-amber-800 mb-2">Important Notes</h3>
-                <ul className="text-sm text-amber-700 space-y-1">
-                  <li>• Provide accurate and honest descriptions of your item</li>
-                  <li>• Upload clear, well-lit photos from multiple angles</li>
-                  <li>• Price your item reasonably for faster sale</li>
-                  <li>• Be responsive to buyer inquiries</li>
-                  <li>• Meet buyers in safe, public locations</li>
-                </ul>
               </div>
             </div>
           </div>
@@ -467,12 +605,12 @@ export default function SellPage() {
               {isSubmitting ? (
                 <>
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  <span>Publishing...</span>
+                  <span>Updating...</span>
                 </>
               ) : (
                 <>
                   <FiCheck className="text-lg" />
-                  <span>Publish Listing</span>
+                  <span>Update Listing</span>
                 </>
               )}
             </button>

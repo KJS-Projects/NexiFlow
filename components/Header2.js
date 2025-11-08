@@ -193,7 +193,7 @@ export default function Header2() {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-lg">
+    <header onMouseLeave={() => setShowUserMenu(false)} className="sticky top-0 z-50 bg-white shadow-lg">
       {/* Main Header */}
       <div className="border-b border-gray-100">
         <div className="container mx-auto px-4 py-3">
@@ -242,7 +242,7 @@ export default function Header2() {
                 // User is logged in - Show user menu
                 <div className="relative">
                   <button
-                    onClick={() => setShowUserMenu(!showUserMenu)}
+                    onMouseEnter={() => setShowUserMenu(true)}
                     className="flex items-center space-x-2 p-2 rounded-lg hover:bg-teal-50 transition duration-300">
                     <div className="w-8 h-8 bg-gradient-to-r from-teal-500 to-amber-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
                       {user?.displayName?.charAt(0)?.toUpperCase() || user?.email?.charAt(0)?.toUpperCase() || "U"}
