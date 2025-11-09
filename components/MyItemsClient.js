@@ -77,7 +77,7 @@ export default function MyItemsClient() {
             <h3 className="text-2xl font-bold text-gray-800 mb-4">Please Sign In</h3>
             <p className="text-gray-600 mb-8">You need to be signed in to view your items.</p>
             <Link
-              href="/signin"
+              href="/auth/signin"
               className="inline-flex items-center space-x-2 bg-teal-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-teal-600 transition duration-300">
               <span>Sign In</span>
             </Link>

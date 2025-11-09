@@ -165,12 +165,12 @@ export default function SellPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                href="/signin"
+                href="/auth/signin"
                 className="flex-1 px-6 py-3 border-2 border-teal-500 text-teal-600 rounded-xl font-semibold hover:bg-teal-50 transition duration-300">
                 Sign In
               </Link>
               <Link
-                href="/signup"
+                href="/auth/signup"
                 className="flex-1 px-6 py-3 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-xl font-semibold hover:from-teal-600 hover:to-amber-600 transition duration-300 shadow-lg shadow-teal-500/25">
                 Sign Up
               </Link>

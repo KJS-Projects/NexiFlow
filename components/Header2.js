@@ -223,7 +223,7 @@ export default function Header2() {
                 <span>Categories</span>
               </Link>
               <Link
-                href={user ? "/items/new" : "/signin"}
+                href={user ? "/items/new" : "/auth/signin"}
                 className="flex items-center space-x-1 ml-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-lg font-medium hover:from-teal-600 hover:to-amber-600 transition-all duration-300 shadow-lg shadow-teal-500/25">
                 <FiPlusCircle className="text-lg" />
                 <span>Sell Item</span>
@@ -232,7 +232,7 @@ export default function Header2() {
 
             {/* Auth Buttons / User Menu */}
             <div className="flex items-center space-x-3">
-              <Link href={user ? "/favorites" : "/signin"}>
+              <Link href={user ? "/favorites" : "/auth/signin"}>
                 <button className="p-2 text-gray-600 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition duration-300">
                   <FiHeart className="text-xl" />
                 </button>
@@ -257,11 +257,11 @@ export default function Header2() {
               ) : (
                 // User is not logged in - Show login/signup buttons
                 <div className="hidden sm:flex items-center space-x-3">
-                  <Link href="/signin" className="px-4 py-2 text-gray-600 hover:text-teal-600 font-medium transition duration-300">
+                  <Link href="/auth/signin" className="px-4 py-2 text-gray-600 hover:text-teal-600 font-medium transition duration-300">
                     Login
                   </Link>
                   <Link
-                    href="/signup"
+                    href="/auth/signup"
                     className="px-6 py-2 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-lg hover:from-teal-600 hover:to-amber-600 transition duration-300 font-medium shadow-lg shadow-teal-500/25">
                     Sign Up
                   </Link>
@@ -274,12 +274,12 @@ export default function Header2() {
           {!user && (
             <div className="flex sm:hidden items-center justify-center space-x-4 mt-3 pt-3 border-t border-gray-100">
               <Link
-                href="/signin"
+                href="/auth/signin"
                 className="flex-1 text-center py-2 text-gray-600 hover:text-teal-600 font-medium transition duration-300">
                 Login
               </Link>
               <Link
-                href="/signup"
+                href="/auth/signup"
                 className="flex-1 text-center py-2 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-lg hover:from-teal-600 hover:to-amber-600 transition duration-300 font-medium shadow-lg shadow-teal-500/25">
                 Sign Up
               </Link>

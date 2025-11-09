@@ -32,7 +32,7 @@ export default function FavoriteButton({ itemId, initialFavoriteCount = 0 }) {
 
   const handleFavoriteClick = async () => {
     if (!currentUser) {
-      router.push("/signin");
+      router.push("/auth/signin");
       return;
     }
 

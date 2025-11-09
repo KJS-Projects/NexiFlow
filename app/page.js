@@ -345,7 +345,7 @@ export default async function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/signup"
+                href="/auth/signup"
                 className="bg-gradient-to-r from-teal-500 to-amber-500 text-white px-8 py-4 rounded-xl font-bold hover:from-teal-600 hover:to-amber-600 transition duration-300 shadow-lg shadow-teal-500/25">
                 Create Free Account
               </Link>
