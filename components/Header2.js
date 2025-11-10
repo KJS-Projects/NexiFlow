@@ -34,8 +34,28 @@ export default function Header2() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const categories = ["Electronics", "Furniture", "Fashion", "Sports", "Books", "Vehicles", "Real Estate", "Toys", "Mobile", "Laptop"];
-  const locations = ["Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad", "Pune", "Kolkata", "Ahmedabad"];
+  const categories = [
+    "Electronics",
+    "Furniture",
+    "Fashion",
+    "Sports",
+    "Books",
+    "Vehicles",
+    "Real Estate",
+    "Toys",
+    "Mobile",
+    "Laptop",
+  ];
+  const locations = [
+    "Mumbai",
+    "Delhi",
+    "Bangalore",
+    "Chennai",
+    "Hyderabad",
+    "Pune",
+    "Kolkata",
+    "Ahmedabad",
+  ];
 
   // Auth state listener
   useEffect(() => {
@@ -113,7 +133,8 @@ export default function Header2() {
             ? "bg-teal-500 text-white border-teal-500 shadow-sm"
             : "bg-amber-500 text-white border-amber-500 shadow-sm"
           : "bg-white text-gray-700 border-gray-300 hover:border-teal-300 hover:text-teal-600"
-      }`}>
+      }`}
+    >
       {children}
     </Link>
   );
@@ -122,14 +143,17 @@ export default function Header2() {
   const UserMenu = () => (
     <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50">
       <div className="px-4 py-2 border-b border-gray-100">
-        <p className="text-sm font-medium text-gray-800 truncate">{user?.displayName || "User"}</p>
+        <p className="text-sm font-medium text-gray-800 truncate">
+          {user?.displayName || "User"}
+        </p>
         <p className="text-xs text-gray-500 truncate">{user?.email}</p>
       </div>
 
       <Link
         href="/profile"
         onClick={() => setShowUserMenu(false)}
-        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition duration-200">
+        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition duration-200"
+      >
         <FiUser className="text-base" />
         <span>My Profile</span>
       </Link>
@@ -137,7 +161,8 @@ export default function Header2() {
       <Link
         href="/my-items"
         onClick={() => setShowUserMenu(false)}
-        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition duration-200">
+        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition duration-200"
+      >
         <FiShoppingBag className="text-base" />
         <span>My Items</span>
       </Link>
@@ -145,7 +170,8 @@ export default function Header2() {
       <Link
         href="/chats"
         onClick={() => setShowUserMenu(false)}
-        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition duration-200">
+        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition duration-200"
+      >
         <FiMessageSquare className="text-base" />
         <span>My Chats</span>
       </Link>
@@ -153,7 +179,8 @@ export default function Header2() {
       <Link
         href="/favorites"
         onClick={() => setShowUserMenu(false)}
-        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition duration-200">
+        className="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600 transition duration-200"
+      >
         <FiHeart className="text-base" />
         <span>Favorites</span>
       </Link>
@@ -161,7 +188,8 @@ export default function Header2() {
       <div className="border-t border-gray-100 mt-1 pt-1">
         <button
           onClick={handleLogout}
-          className="flex items-center space-x-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-200">
+          className="flex items-center space-x-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-200"
+        >
           <FiLogOut className="text-base" />
           <span>Sign Out</span>
         </button>
@@ -193,7 +221,10 @@ export default function Header2() {
   }
 
   return (
-    <header onMouseLeave={() => setShowUserMenu(false)} className="sticky top-0 z-50 bg-white shadow-lg">
+    <header
+      onMouseLeave={() => setShowUserMenu(false)}
+      className="sticky top-0 z-50 bg-white shadow-lg"
+    >
       {/* Main Header */}
       <div className="border-b border-gray-100">
         <div className="container mx-auto px-4 py-3">
@@ -204,8 +235,12 @@ export default function Header2() {
                 <FiHome className="text-white text-lg" />
               </div>
               <div>
-                <span className="text-2xl font-bold text-gray-800">MyStore</span>
-                <span className="block text-xs text-teal-600 font-medium -mt-1">Second Hand</span>
+                <span className="text-2xl font-bold text-gray-800">
+                  MyStore
+                </span>
+                <span className="block text-xs text-teal-600 font-medium -mt-1">
+                  Second Hand new
+                </span>
               </div>
             </Link>
 
@@ -213,18 +248,21 @@ export default function Header2() {
             <nav className="hidden md:flex items-center space-x-1">
               <Link
                 href="/browse"
-                className="flex items-center space-x-1 px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:bg-teal-50 hover:text-teal-600 text-gray-600">
+                className="flex items-center space-x-1 px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:bg-teal-50 hover:text-teal-600 text-gray-600"
+              >
                 <FiSearch className="text-lg" />
                 <span>Browse</span>
               </Link>
               <Link
                 href="/categories"
-                className="flex items-center space-x-1 px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:bg-teal-50 hover:text-teal-600 text-gray-600">
+                className="flex items-center space-x-1 px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:bg-teal-50 hover:text-teal-600 text-gray-600"
+              >
                 <span>Categories</span>
               </Link>
               <Link
                 href={user ? "/items/new" : "/auth/signin"}
-                className="flex items-center space-x-1 ml-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-lg font-medium hover:from-teal-600 hover:to-amber-600 transition-all duration-300 shadow-lg shadow-teal-500/25">
+                className="flex items-center space-x-1 ml-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-lg font-medium hover:from-teal-600 hover:to-amber-600 transition-all duration-300 shadow-lg shadow-teal-500/25"
+              >
                 <FiPlusCircle className="text-lg" />
                 <span>Sell Item</span>
               </Link>
@@ -243,9 +281,12 @@ export default function Header2() {
                 <div className="relative">
                   <button
                     onMouseEnter={() => setShowUserMenu(true)}
-                    className="flex items-center space-x-2 p-2 rounded-lg hover:bg-teal-50 transition duration-300">
+                    className="flex items-center space-x-2 p-2 rounded-lg hover:bg-teal-50 transition duration-300"
+                  >
                     <div className="w-8 h-8 bg-gradient-to-r from-teal-500 to-amber-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
-                      {user?.displayName?.charAt(0)?.toUpperCase() || user?.email?.charAt(0)?.toUpperCase() || "U"}
+                      {user?.displayName?.charAt(0)?.toUpperCase() ||
+                        user?.email?.charAt(0)?.toUpperCase() ||
+                        "U"}
                     </div>
                     <span className="hidden sm:block text-sm font-medium text-gray-700 max-w-24 truncate">
                       {user?.displayName || "User"}
@@ -257,12 +298,16 @@ export default function Header2() {
               ) : (
                 // User is not logged in - Show login/signup buttons
                 <div className="hidden sm:flex items-center space-x-3">
-                  <Link href="/auth/signin" className="px-4 py-2 text-gray-600 hover:text-teal-600 font-medium transition duration-300">
+                  <Link
+                    href="/auth/signin"
+                    className="px-4 py-2 text-gray-600 hover:text-teal-600 font-medium transition duration-300"
+                  >
                     Login
                   </Link>
                   <Link
                     href="/auth/signup"
-                    className="px-6 py-2 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-lg hover:from-teal-600 hover:to-amber-600 transition duration-300 font-medium shadow-lg shadow-teal-500/25">
+                    className="px-6 py-2 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-lg hover:from-teal-600 hover:to-amber-600 transition duration-300 font-medium shadow-lg shadow-teal-500/25"
+                  >
                     Sign Up
                   </Link>
                 </div>
@@ -275,12 +320,14 @@ export default function Header2() {
             <div className="flex sm:hidden items-center justify-center space-x-4 mt-3 pt-3 border-t border-gray-100">
               <Link
                 href="/auth/signin"
-                className="flex-1 text-center py-2 text-gray-600 hover:text-teal-600 font-medium transition duration-300">
+                className="flex-1 text-center py-2 text-gray-600 hover:text-teal-600 font-medium transition duration-300"
+              >
                 Login
               </Link>
               <Link
                 href="/auth/signup"
-                className="flex-1 text-center py-2 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-lg hover:from-teal-600 hover:to-amber-600 transition duration-300 font-medium shadow-lg shadow-teal-500/25">
+                className="flex-1 text-center py-2 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-lg hover:from-teal-600 hover:to-amber-600 transition duration-300 font-medium shadow-lg shadow-teal-500/25"
+              >
                 Sign Up
               </Link>
             </div>
@@ -295,7 +342,10 @@ export default function Header2() {
           <div className="flex items-center justify-between mb-2">
             {/* Breadcrumb */}
             <div className="flex items-center space-x-2 text-sm">
-              <Link href="/" className="flex items-center space-x-1 text-teal-600 hover:text-teal-700 transition-colors">
+              <Link
+                href="/"
+                className="flex items-center space-x-1 text-teal-600 hover:text-teal-700 transition-colors"
+              >
                 <FiHome className="text-base" />
                 <span>Home</span>
               </Link>
@@ -304,13 +354,18 @@ export default function Header2() {
             </div>
 
             {/* Active Filters */}
-            {(activeFilters.category || activeFilters.location || activeFilters.price) && (
+            {(activeFilters.category ||
+              activeFilters.location ||
+              activeFilters.price) && (
               <div className="flex items-center space-x-2">
                 <div className="flex items-center space-x-1">
                   {activeFilters.category && (
                     <span className="flex items-center space-x-1 px-2 py-1 bg-teal-100 text-teal-700 rounded-full text-xs font-medium">
                       {activeFilters.category}
-                      <button onClick={() => removeFilter("category")} className="hover:text-teal-900 transition duration-300">
+                      <button
+                        onClick={() => removeFilter("category")}
+                        className="hover:text-teal-900 transition duration-300"
+                      >
                         <FiX className="text-xs" />
                       </button>
                     </span>
@@ -318,7 +373,10 @@ export default function Header2() {
                   {activeFilters.location && (
                     <span className="flex items-center space-x-1 px-2 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-medium">
                       {activeFilters.location}
-                      <button onClick={() => removeFilter("location")} className="hover:text-amber-900 transition duration-300">
+                      <button
+                        onClick={() => removeFilter("location")}
+                        className="hover:text-amber-900 transition duration-300"
+                      >
                         <FiX className="text-xs" />
                       </button>
                     </span>
@@ -326,13 +384,19 @@ export default function Header2() {
                   {activeFilters.price && (
                     <span className="flex items-center space-x-1 px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium">
                       {activeFilters.price}
-                      <button onClick={() => removeFilter("price")} className="hover:text-gray-900 transition duration-300">
+                      <button
+                        onClick={() => removeFilter("price")}
+                        className="hover:text-gray-900 transition duration-300"
+                      >
                         <FiX className="text-xs" />
                       </button>
                     </span>
                   )}
                 </div>
-                <button onClick={clearFilters} className="text-xs text-gray-500 hover:text-gray-700 font-medium transition duration-300">
+                <button
+                  onClick={clearFilters}
+                  className="text-xs text-gray-500 hover:text-gray-700 font-medium transition duration-300"
+                >
                   Clear all
                 </button>
               </div>
@@ -354,7 +418,8 @@ export default function Header2() {
                     type="category"
                     value={category}
                     isActive={activeFilters.category === category}
-                    onClick={handleFilterClick}>
+                    onClick={handleFilterClick}
+                  >
                     {category}
                   </FilterButton>
                 ))}
@@ -374,7 +439,8 @@ export default function Header2() {
                     type="location"
                     value={location}
                     isActive={activeFilters.location === location}
-                    onClick={handleFilterClick}>
+                    onClick={handleFilterClick}
+                  >
                     {location}
                   </FilterButton>
                 ))}
@@ -385,7 +451,12 @@ export default function Header2() {
       </div>
 
       {/* Backdrop for user menu (mobile) */}
-      {showUserMenu && <div className="fixed inset-0 z-40 bg-black bg-opacity-10 md:hidden" onClick={() => setShowUserMenu(false)} />}
+      {showUserMenu && (
+        <div
+          className="fixed inset-0 z-40 bg-black bg-opacity-10 md:hidden"
+          onClick={() => setShowUserMenu(false)}
+        />
+      )}
     </header>
   );
 }
