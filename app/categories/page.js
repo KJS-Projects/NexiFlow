@@ -83,19 +83,18 @@ export default async function CategoriesPage() {
                 </div>
 
                 {/* Items Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {section.items.slice(0, 4).map((item) => (
                     <Link
                       key={item.id}
                       href={`/items/${item.id}`}
                       className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group">
                       {/* Item Image */}
-                      <div className="relative h-48 bg-gray-200 overflow-hidden">
+                      <div className="relative bg-gray-200 overflow-hidden">
                         {item.image_urls && (
                           <img
                             src={item.image_urls[0]}
                             alt={item.title}
-                            fill="true"
                             className="object-cover group-hover:scale-110 transition-transform duration-300"
                           />
                         )}
