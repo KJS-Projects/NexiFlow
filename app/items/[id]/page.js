@@ -266,18 +266,14 @@ export default async function ItemPage({ params }) {
                 </div>
               </div>
 
-              {/* Contact Seller Button - Disabled if sold */}
-              <button
-                disabled={item.status === "sold"}
+              <StartChatButton
+                item={item}
                 className={`w-full py-4 rounded-xl font-bold transition duration-300 shadow-lg mb-4 ${
                   item.status === "sold"
                     ? "bg-gray-400 text-gray-200 cursor-not-allowed"
                     : "bg-gradient-to-r from-teal-500 to-amber-500 text-white hover:from-teal-600 hover:to-amber-600 shadow-teal-500/25"
-                }`}>
-                {item.status === "sold" ? "Item Sold" : "Contact Seller"}
-              </button>
-
-              <StartChatButton item={item} className="w-full" />
+                }`}
+              />
             </div>
 
             {/* Rest of your existing sections remain the same */}

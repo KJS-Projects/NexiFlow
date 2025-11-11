@@ -58,9 +58,9 @@ export default function StartChatButton({ item, className = "" }) {
   return (
     <button
       onClick={handleStartChat}
-      disabled={loading}
-      className={`px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}>
-      {loading ? "Starting Chat..." : "💬 Contact Seller"}
+      disabled={loading && item.status === "sold"}
+      className={`px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-teal-600 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}>
+      {loading ? "Starting Chat..." : item.status === "sold" ? "Item Sold" : "Contact Seller"}
     </button>
   );
 }
