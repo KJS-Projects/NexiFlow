@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { confirmPasswordReset, verifyPasswordResetCode } from "firebase/auth";
-import { auth } from "@/utils/firebase";
+import { auth } from "@/utils/firebaseBrowser";
 import Link from "next/link";
 import { FiLock, FiCheck, FiAlertCircle, FiArrowLeft } from "react-icons/fi";
 

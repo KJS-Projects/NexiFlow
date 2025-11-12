@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { FiHeart, FiArrowLeft, FiShoppingBag } from "react-icons/fi";
 import Link from "next/link";
 import { getFavorites } from "@/actions/favorites";
-import { auth } from "@/utils/firebase"; // Make sure this path is correct
+import { auth } from "@/utils/firebaseBrowser"; // Make sure this path is correct
 import { onAuthStateChanged } from "firebase/auth";
 
 export default function FavoritesClient() {

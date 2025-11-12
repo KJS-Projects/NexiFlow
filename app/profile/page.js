@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { auth } from "@/utils/firebase";
+import { auth } from "@/utils/firebaseBrowser";
 import {
   onAuthStateChanged,
   updateProfile,

@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "@/utils/firebase"; // Adjust the import path based on your firebase.js location
+import { auth } from "@/utils/firebaseBrowser";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FiMail, FiLock, FiUser, FiEye, FiEyeOff, FiArrowLeft } from "react-icons/fi";
@@ -26,50 +26,50 @@ export default function SignUpPage() {
   const [authChecked, setAuthChecked] = useState(false);
 
   useEffect(() => {
-    // 1. Set up the listener
     const unsubscribe = onAuthStateChanged(auth, (u) => {
       setUser(u);
-      setAuthChecked(true); // Mark the check as complete
+      setAuthChecked(true);
     });
 
-    // 2. Cleanup the listener
     return () => unsubscribe();
-  }, [router]); // Added router to dependency array for clarity (though usually not necessary for next/navigation)
+  }, [router]);
 
-  // 3. Add a second useEffect for redirection logic
   useEffect(() => {
-    // Only attempt to redirect if the auth check is complete AND a user is found
     if (authChecked && user) {
       console.log("User is already logged in. Redirecting to home.");
-      router.replace("/profile"); // Use replace to prevent back navigation to the signup page
+      router.replace("/profile");
     }
   }, [user, authChecked, router]);
-
-  // If the user is logged in, and we know it, we should render nothing (or a loading spinner) while redirecting.
-  if (authChecked && user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
-
-  // Only render the form if the auth check is complete AND no user is logged in
-  if (!authChecked) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
-    // Clear error when user starts typing
     if (error) setError("");
+  };
+
+  // Function to create user in PostgreSQL via API
+  const createUserInDatabase = async (userData) => {
+    try {
+      const response = await fetch("/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to create user in database");
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Error creating user in database:", error);
+      throw error;
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -105,6 +105,13 @@ export default function SignUpPage() {
         displayName: formData.fullName,
       });
 
+      // ✅ CREATE USER IN POSTGRESQL DATABASE via API
+      await createUserInDatabase({
+        firebase_uid: userCredential.user.uid,
+        email: userCredential.user.email,
+        display_name: formData.fullName,
+      });
+
       // Redirect to home page or dashboard
       router.push("/");
     } catch (error) {
@@ -133,6 +140,22 @@ export default function SignUpPage() {
       setLoading(false);
     }
   };
+
+  if (authChecked && user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (!authChecked) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-teal-50/20 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">

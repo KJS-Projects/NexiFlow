@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/utils/firebase"; // Adjust the import path based on your firebase.js location
+import { auth } from "@/utils/firebaseBrowser"; // Adjust the import path based on your firebase.js location
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiArrowLeft } from "react-icons/fi";

@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { updateItemStatusAction, deleteItemAction } from "@/actions/itemsAction";
-import { auth } from "@/utils/firebase";
+import { auth } from "@/utils/firebaseBrowser";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { FiEdit, FiTrash2, FiCheck, FiX, FiAlertTriangle } from "react-icons/fi";

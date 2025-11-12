@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "@/utils/firebase";
+import { auth } from "@/utils/firebaseBrowser";
 import Link from "next/link";
 import { FiMail, FiArrowLeft, FiCheck, FiAlertCircle, FiLock } from "react-icons/fi";
 

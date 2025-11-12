@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { getMyItems } from "@/actions/itemsAction";
-import { auth } from "@/utils/firebase";
+import { auth } from "@/utils/firebaseBrowser";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { FiShoppingBag, FiPlus, FiArrowLeft, FiCheck, FiX, FiEdit, FiDollarSign, FiMapPin, FiCalendar, FiTag } from "react-icons/fi";

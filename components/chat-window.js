@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { getChat, getMessages, sendMessage, sendImageMessage } from "@/actions/chatActions";
-import { auth } from "@/utils/firebase";
+import { auth } from "@/utils/firebaseBrowser";
 import { onAuthStateChanged } from "firebase/auth";
 import Image from "next/image";
 

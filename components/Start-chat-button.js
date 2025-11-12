@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { startChat } from "@/actions/chatActions";
-import { auth } from "@/utils/firebase";
+import { auth } from "@/utils/firebaseBrowser";
 import { onAuthStateChanged } from "firebase/auth";
 
 export default function StartChatButton({ item, className = "" }) {

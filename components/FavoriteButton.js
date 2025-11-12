@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { FiHeart } from "react-icons/fi";
 import { toggleFavorite, checkFavoriteStatus } from "@/actions/favorites";
-import { auth } from "@/utils/firebase";
+import { auth } from "@/utils/firebaseBrowser";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 

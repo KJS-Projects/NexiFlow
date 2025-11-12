@@ -18,7 +18,7 @@ import {
   FiLogIn,
 } from "react-icons/fi";
 import { handleCreateItem } from "@/actions/addItemActions";
-import { auth } from "@/utils/firebase";
+import { auth } from "@/utils/firebaseBrowser";
 import { onAuthStateChanged } from "firebase/auth";
 import Link from "next/link";
 

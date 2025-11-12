@@ -22,7 +22,7 @@ import {
   FiGrid,
   FiList,
 } from "react-icons/fi";
-import { auth } from "@/utils/firebase";
+import { auth } from "@/utils/firebaseBrowser";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
 export default function Header2() {

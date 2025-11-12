@@ -17,7 +17,7 @@ import {
   FiAlertCircle,
   FiEdit,
 } from "react-icons/fi";
-import { auth } from "@/utils/firebase";
+import { auth } from "@/utils/firebaseBrowser";
 import { onAuthStateChanged } from "firebase/auth";
 import Link from "next/link";
 
