@@ -43,3 +43,11 @@
 .animate-slide-up {
   animation: slide-up 0.3s ease-out;
 }
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

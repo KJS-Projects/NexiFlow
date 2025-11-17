@@ -53,7 +53,7 @@ export default function FilterForm({ categories = [], locations = [], initialVal
     <form className="space-y-6">
       {/* Search */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Search Products</label>
+        <label className="hidden lg:block text-sm font-medium text-gray-700 mb-2">Search Products</label>
         <div className="relative">
           <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <input
@@ -68,7 +68,7 @@ export default function FilterForm({ categories = [], locations = [], initialVal
 
       {/* Category */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
+        <label className="hidden lg:block text-sm font-medium text-gray-700 mb-2">Category</label>
         <div className="relative">
           <FiTag className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <select
@@ -87,7 +87,7 @@ export default function FilterForm({ categories = [], locations = [], initialVal
 
       {/* Location */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+        <label className="hidden lg:block text-sm font-medium text-gray-700 mb-2">Location</label>
         <div className="relative">
           <FiMapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <select
@@ -106,7 +106,7 @@ export default function FilterForm({ categories = [], locations = [], initialVal
 
       {/* Price Range */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Price Range</label>
+        <label className="hidden lg:block text-sm font-medium text-gray-700 mb-2">Price Range</label>
         <div className="grid grid-cols-2 gap-3">
           <div className="relative">
             <FiDollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
